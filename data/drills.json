@@ -1,0 +1,6 @@
+[
+{ "id": "d-boxout-2man", "name": "2‑Man Box Out", "tags": ["rebounding","fundamentals"], "summary": "Partner box-out with coach shot.", "video_channel_ref": "playlist/rebounding-basics", "video_source": "YouTube", "diagram": "d-boxout-2man.png" },
+{ "id": "d-reb-2v2", "name": "2v2 Rebound Battle", "tags": ["rebounding","compete"], "summary": "Live 2v2 from coach shot; points for clean boards.", "video_channel_ref": "playlist/rebounding-compete", "video_source": "YouTube" },
+{ "id": "d-3lane-runout", "name": "3‑Lane Runout", "tags": ["transition","finishing"], "summary": "3‑man weave variant emphasizing first 3 steps." },
+{ "id": "d-5on5-advantage", "name": "5‑on‑5 Advantage", "tags": ["decision‑making","scrimmage"], "summary": "Start with 4v5, add trailer; teach pace and space." }
+]

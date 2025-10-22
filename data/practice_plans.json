@@ -1,0 +1,17 @@
+[
+{
+"id": "pp-2025-10-26",
+"date": "2025-10-26T18:00:00",
+"location": "Allatoona HS Aux",
+"theme": "Rebounding & Transition",
+"focus": "Box-out fundamentals; first 3 steps in transition",
+"duration": "90 min",
+"items": [
+{ "time": "0-10", "notes": "Dynamic warmup", "diagram": "warmup-01.png" },
+{ "time": "10-25", "drill_id": "d-boxout-2man", "mentorship_id": "m-grit-10sec" },
+{ "time": "25-45", "drill_id": "d-reb-2v2", "video_ref": "v-playlist-bigman" },
+{ "time": "45-65", "drill_id": "d-3lane-runout" },
+{ "time": "65-90", "drill_id": "d-5on5-advantage" }
+]
+}
+]

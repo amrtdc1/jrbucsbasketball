@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#000000" />
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <link rel="stylesheet" href="./styles.css" />
+    <title>Jr Bucs Team Hub</title>
+</head>
+
+<body>
+    <header class="app-header">
+        <h1 id="appTitle">Jr Bucs Team Hub</h1>
+        <button id="btnInstall" class="ghost" aria-label="Install app" hidden>Install</button>
+    </header>
+
+
+    <nav class="tabs" role="navigation" aria-label="Primary">
+        <a href="#/" data-route>Home</a>
+        <a href="#/practice" data-route>Practice Plans</a>
+        <a href="#/drills" data-route>Drills</a>
+        <a href="#/mentorship" data-route>Mentorship</a>
+        <a href="#/roster" data-route>Roster</a>
+        <a href="#/about" data-route>About</a>
+    </nav>
+
+
+    <main id="app" tabindex="-1" aria-live="polite"></main>
+
+
+    <div id="snackbar" role="status" aria-live="polite" hidden></div>
+
+
+    <script src="./vendor/qrcode.min.js"></script>
+    <script type="module">
+        import { initRouter } from './js/router.js';
+        import { registerSW } from './js/sw-register.js';
+        import { loadSettings, setTheme } from './js/ui.js';
+
+
+        // App bootstrap
+        (async () => {
+            const settings = await loadSettings();
+            document.getElementById('appTitle').textContent = settings.team_name || 'Team Hub';
+            setTheme(settings.theme || 'auto');
+            initRouter();
+            registerSW();
+
+
+            // Install button handling
+            let deferredPrompt;
+            const btnInstall = document.getElementById('btnInstall');
+            window.addEventListener('beforeinstallprompt', (e) => {
+                e.preventDefault();
+                deferredPrompt = e; btnInstall.hidden = false;
+            });
+            btnInstall.addEventListener('click', async () => {
+                btnInstall.hidden = true;
+                if (!deferredPrompt) return;
+                deferredPrompt.prompt();
+                await deferredPrompt.userChoice; deferredPrompt = null;
+            });
+        })();
+    </script>
+</body>
+
+</html>
