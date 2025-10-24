@@ -4,27 +4,27 @@ const DATA_CACHE = `teamhub-data-${VERSION}`;
 
 
 const STATIC_ASSETS = [
-    '/',
-    '/index.html',
-    '/styles.css',
-    '/js/app.js',
-    '/js/router.js',
-    '/js/ui.js',
-    '/js/sw-register.js',
-    '/vendor/qrcode.min.js',
-    '/manifest.webmanifest',
-    '/offline.html'
+    './',
+    './index.html',
+    './styles.css',
+    './js/app.js',
+    './js/router.js',
+    './js/ui.js',
+    './js/sw-register.js',
+    './vendor/qrcode.min.js',
+    './manifest.webmanifest',
+    './offline.html'
 ];
 
 
 const DATA_FILES = [
-    '/data/settings.json',
-    '/data/announcements.json',
-    '/data/practice_plans.json',
-    '/data/drills.json',
-    '/data/mentorship.json',
-    '/data/videos.json',
-    '/data/roster.json'
+    './data/settings.json',
+    './data/announcements.json',
+    './data/practice_plans.json',
+    './data/drills.json',
+    './data/mentorship.json',
+    './data/videos.json',
+    './data/roster.json'
 ];
 
 
