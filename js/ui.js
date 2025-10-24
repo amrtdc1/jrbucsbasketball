@@ -43,7 +43,7 @@ export function toggleTheme() {
 // ---------- Formatting ----------
 const fmtDate = (iso) => {
   try {
-    return new Date(iso).toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric' });
+    return new Date(iso).toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric', time: 'short' });
   } catch { return iso; }
 };
 
@@ -407,4 +407,5 @@ export async function renderAbout() {
 
   // (Roster sorting retained from earlier version if you added it)
 })();
+
 
