@@ -147,7 +147,10 @@ main#app { padding: 12px; max-width: 1000px; margin: 0 auto; }
 }
 
 /* Optional body wrapper if you want distinct spacing */
-.card-body {}
+.card-body {
+  padding: var(--pad);
+  > * + * { margin-top: 12px; }
+}
 
 /* ========== Inputs, badges, table, QR ========== */
 .input {
@@ -184,3 +187,4 @@ main#app { padding: 12px; max-width: 1000px; margin: 0 auto; }
 
 /* Utilities */
 .hidden { display: none; }
+
