@@ -1,86 +1,186 @@
+/* ========== Theme tokens ========== */
 :root {
   color-scheme: light dark;
-  --bg: #fff;
-  --fg: #111;
-  --muted: #666;
-  --card: #f0f0f0;
-  --alt-bg: #000;   /* header alt in light mode */
-  --alt-fg: #fff;
+  /* Light defaults */
+  --bg: #ffffff;
+  --fg: #111111;
+  --muted: #666666;
+  --surface: #f7f7f7;
+  --card-border: #e6e6e6;
+
+  /* Alt header tokens (light) */
+  --header-alt-bg: #000000;
+  --header-alt-fg: #ffffff;
+
+  /* Component tweaks */
+  --radius: 14px;
+  --pad: 12px;
 }
-@media (prefers-color-scheme: dark){
+
+/* Prefer dark = system dark tokens */
+@media (prefers-color-scheme: dark) {
   :root {
-    --bg:#000;
-    --fg:#f5f5f5;
-    --muted:#aaa;
-    --card:#141414;
-    --alt-bg:#fff;  /* header alt in dark mode */
-    --alt-fg:#000;
+    --bg: #000000;
+    --fg: #f5f5f5;
+    --muted: #aaaaaa;
+    --surface: #111111;
+    --card-border: #1f1f1f;
+
+    /* Alt header tokens (dark) */
+    --header-alt-bg: #ffffff;
+    --header-alt-fg: #000000;
   }
 }
 
-*{box-sizing:border-box}
-body{
-  margin:0;
-  font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Helvetica,Arial,sans-serif;
-  background:var(--bg); color:var(--fg);
+/* Explicit overrides when user toggles theme */
+html[data-theme="light"] {
+  --bg: #ffffff;
+  --fg: #111111;
+  --muted: #666666;
+  --surface: #f7f7f7;
+  --card-border: #e6e6e6;
+  --header-alt-bg: #000000;
+  --header-alt-fg: #ffffff;
+  color-scheme: light;
+}
+html[data-theme="dark"] {
+  --bg: #000000;
+  --fg: #f5f5f5;
+  --muted: #aaaaaa;
+  --surface: #111111;
+  --card-border: #1f1f1f;
+  --header-alt-bg: #ffffff;
+  --header-alt-fg: #000000;
+  color-scheme: dark;
 }
 
-.app-header{
-  display:flex; align-items:center; justify-content:space-between;
-  padding:12px 16px; border-bottom:1px solid var(--card);
-  position:sticky; top:0; background:var(--bg); z-index:10;
+/* ========== Base ========== */
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Helvetica, Arial, sans-serif;
+  background: var(--bg);
+  color: var(--fg);
 }
 
-.tabs{
-  display:grid; grid-auto-flow:column; gap:8px; overflow:auto;
-  padding:8px 12px; border-bottom:1px solid var(--card)
+/* ========== Header & Tabs ========== */
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--card-border);
+  position: sticky;
+  top: 0;
+  background: var(--bg);
+  z-index: 10;
 }
-.tabs a{
-  padding:8px 10px; border-radius:8px; text-decoration:none; color:inherit;
-  border:1px solid transparent; white-space:nowrap
-}
-.tabs a.active{ border-color:var(--fg) }
+.app-header .row { display:flex; gap:8px; align-items:center; }
 
-main#app{ padding:12px; max-width:1000px; margin:0 auto }
-.list{ display:grid; gap:8px }
-.card{
-  border:1px solid var(--card); border-radius:14px; background:transparent; overflow:hidden;
+/* Buttons */
+.btn, .ghost {
+  border-radius: 999px;
+  padding: 6px 10px;
+  cursor: pointer;
+  border: 1px solid var(--fg);
+  background: transparent;
+  color: var(--fg);
 }
-.card-header{
-  padding:10px 12px; font-weight:700; border-bottom:1px solid var(--card);
-  background:var(--bg);
-}
-.card-header.alt{
-  background:var(--alt-bg); color:var(--alt-fg);
-}
-.card-body{ padding:12px }
+.btn[aria-pressed="true"] { outline: 2px solid var(--fg); }
 
-.meta{ font-size:.9rem; color:var(--muted) }
-.input{ width:100%; padding:10px; border:1px solid var(--card); border-radius:10px; background:transparent; color:inherit }
-.row{ display:flex; align-items:center; gap:8px; flex-wrap:wrap }
-.grid{ display:grid; gap:12px }
-.grid.cols-2{ grid-template-columns:repeat(2,minmax(0,1fr)) }
-
-.badge{ border:1px solid var(--fg); padding:2px 6px; border-radius:999px; font-size:.75rem }
-.btn{ border:1px solid var(--fg); background:transparent; padding:6px 10px; border-radius:10px; cursor:pointer }
-.btn:disabled{ opacity:.6; cursor:not-allowed }
-
-#snackbar{
-  position:fixed; left:50%; bottom:16px; transform:translateX(-50%);
-  background:var(--fg); color:var(--bg); padding:8px 12px; border-radius:8px
+/* Theme toggle pill */
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.95rem;
 }
 
-.table{ width:100%; border-collapse:collapse }
-.table th,.table td{ border:1px solid var(--card); padding:8px; text-align:left }
-.table th{ cursor:pointer; user-select:none }
-.table th[data-sort]:after{
-  content:" ⇅"; color:var(--muted); font-weight:normal
+/* Tabs */
+.tabs {
+  display: grid;
+  grid-auto-flow: column;
+  gap: 8px;
+  overflow: auto;
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--card-border);
 }
-.table th.sorted-asc:after{ content:" ↑" }
-.table th.sorted-desc:after{ content:" ↓" }
+.tabs a {
+  padding: 8px 10px;
+  border-radius: 8px;
+  text-decoration: none;
+  color: inherit;
+  border: 1px solid transparent;
+  white-space: nowrap;
+}
+.tabs a.active { border-color: var(--fg); }
 
-.qr{ display:grid; place-items:center; padding:8px; border:1px dashed var(--card); border-radius:12px }
-.figure{ margin:8px 0 }
-.figure img{ max-width:100%; height:auto; display:block; border-radius:8px; border:1px solid var(--card) }
+/* ========== Layout ========== */
+main#app { padding: 12px; max-width: 1000px; margin: 0 auto; }
+.list { display: grid; gap: 8px; }
+.grid { display: grid; gap: 12px; }
+.grid.cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.meta { font-size: 0.9rem; color: var(--muted); }
 
-.hidden{ display:none }
+/* ========== Cards ========== */
+.card {
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius);
+  background: transparent;
+  padding: var(--pad);
+}
+
+/* NEW: header blocks inside cards */
+.card-header {
+  margin: calc(-1 * var(--pad)) calc(-1 * var(--pad)) 8px;
+  padding: 10px var(--pad);
+  border-radius: var(--radius) var(--radius) 0 0;
+  background: var(--surface);
+  color: var(--fg);
+  font-weight: 600;
+}
+.card-header.alt {
+  background: var(--header-alt-bg);
+  color: var(--header-alt-fg);
+}
+
+/* Optional body wrapper if you want distinct spacing */
+.card-body {}
+
+/* ========== Inputs, badges, table, QR ========== */
+.input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid var(--card-border);
+  border-radius: 10px;
+  background: transparent;
+  color: inherit;
+}
+.badge {
+  border: 1px solid var(--fg);
+  padding: 2px 6px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  color: inherit;
+  text-decoration: none;
+}
+.table { width: 100%; border-collapse: collapse; }
+.table th, .table td { border: 1px solid var(--card-border); padding: 8px; text-align: left; }
+.qr { display: grid; place-items: center; padding: 8px; border: 1px dashed var(--card-border); border-radius: 12px; }
+
+/* Snackbar */
+#snackbar {
+  position: fixed;
+  left: 50%;
+  bottom: 16px;
+  transform: translateX(-50%);
+  background: var(--fg);
+  color: var(--bg);
+  padding: 8px 12px;
+  border-radius: 8px;
+}
+
+/* Utilities */
+.hidden { display: none; }

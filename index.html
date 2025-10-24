@@ -1,69 +1,97 @@
 <!doctype html>
 <html lang="en">
-
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <meta name="theme-color" content="#000000" />
-    <link rel="manifest" href="./manifest.webmanifest" />
-    <link rel="stylesheet" href="./styles.css" />
-    <title>Jr Bucs Team Hub</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#000000" />
+  <link rel="manifest" href="./manifest.webmanifest" />
+  <link rel="stylesheet" href="./styles.css" />
+  <title>Jr Bucs Team Hub</title>
 </head>
-
 <body>
-    <header class="app-header">
-        <h1 id="appTitle">Jr Bucs Team Hub</h1>
-        <button id="btnInstall" class="ghost" aria-label="Install app" hidden>Install</button>
-    </header>
+  <header class="app-header">
+    <h1 id="appTitle">Jr Bucs Team Hub</h1>
 
+    <div class="row">
+      <!-- NEW: Light/Dark toggle -->
+      <button id="btnTheme" class="btn theme-toggle" aria-label="Toggle theme" aria-pressed="false">
+        <span id="themeIcon" aria-hidden="true">🌙</span>
+        <span id="themeLabel">Dark</span>
+      </button>
 
-    <nav class="tabs" role="navigation" aria-label="Primary">
-        <a href="#/" data-route>Home</a>
-        <a href="#/practice" data-route>Practice Plans</a>
-        <a href="#/drills" data-route>Drills</a>
-        <a href="#/mentorship" data-route>Mentorship</a>
-        <a href="#/roster" data-route>Roster</a>
-        <a href="#/about" data-route>About</a>
-    </nav>
+      <button id="btnInstall" class="ghost" aria-label="Install app" hidden>Install</button>
+    </div>
+  </header>
 
+  <nav class="tabs" role="navigation" aria-label="Primary">
+    <a href="#/" data-route>Home</a>
+    <a href="#/practice" data-route>Practice Plans</a>
+    <a href="#/drills" data-route>Drills</a>
+    <a href="#/mentorship" data-route>Mentorship</a>
+    <a href="#/roster" data-route>Roster</a>
+    <a href="#/about" data-route>About</a>
+  </nav>
 
-    <main id="app" tabindex="-1" aria-live="polite"></main>
+  <main id="app" tabindex="-1" aria-live="polite"></main>
 
+  <div id="snackbar" role="status" aria-live="polite" hidden></div>
 
-    <div id="snackbar" role="status" aria-live="polite" hidden></div>
+  <script src="./vendor/qrcode.min.js"></script>
+  <script type="module">
+    import { initRouter } from './js/router.js';
+    import { registerSW } from './js/sw-register.js';
+    import { loadSettings, applyTheme, initThemeFromSettings, toggleTheme } from './js/ui.js';
 
+    // App bootstrap
+    (async () => {
+      const settings = await loadSettings();
+      document.getElementById('appTitle').textContent = settings.team_name || 'Team Hub';
 
-    <script src="./vendor/qrcode.min.js"></script>
-    <script type="module">
-        import { initRouter } from './js/router.js';
-        import { registerSW } from './js/sw-register.js';
-        import { loadSettings, setTheme } from './js/ui.js';
+      // Theme init (honor saved preference > settings.theme > auto)
+      const current = initThemeFromSettings(settings);
+      updateThemeButton(current);
 
+      // Wire the toggle
+      const btnTheme = document.getElementById('btnTheme');
+      btnTheme.addEventListener('click', () => {
+        const next = toggleTheme();   // returns "light" or "dark"
+        updateThemeButton(next);
+      });
 
-        // App bootstrap
-        (async () => {
-            const settings = await loadSettings();
-            document.getElementById('appTitle').textContent = settings.team_name || 'Team Hub';
-            setTheme(settings.theme || 'auto');
-            initRouter();
-            registerSW();
+      // Install handling
+      let deferredPrompt;
+      const btnInstall = document.getElementById('btnInstall');
+      window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredPrompt = e; btnInstall.hidden = false;
+      });
+      btnInstall.addEventListener('click', async () => {
+        btnInstall.hidden = true;
+        if (!deferredPrompt) return;
+        deferredPrompt.prompt();
+        await deferredPrompt.userChoice; deferredPrompt = null;
+      });
 
+      // Router + SW
+      initRouter();
+      registerSW();
+    })();
 
-            // Install button handling
-            let deferredPrompt;
-            const btnInstall = document.getElementById('btnInstall');
-            window.addEventListener('beforeinstallprompt', (e) => {
-                e.preventDefault();
-                deferredPrompt = e; btnInstall.hidden = false;
-            });
-            btnInstall.addEventListener('click', async () => {
-                btnInstall.hidden = true;
-                if (!deferredPrompt) return;
-                deferredPrompt.prompt();
-                await deferredPrompt.userChoice; deferredPrompt = null;
-            });
-        })();
-    </script>
+    function updateThemeButton(mode) {
+      const btn = document.getElementById('btnTheme');
+      const icon = document.getElementById('themeIcon');
+      const label = document.getElementById('themeLabel');
+      const isDark = (mode === 'dark' || (mode === 'auto' && matchMedia('(prefers-color-scheme: dark)').matches));
+      btn.setAttribute('aria-pressed', isDark ? 'true' : 'false');
+      icon.textContent = isDark ? '☀️' : '🌙';
+      label.textContent = isDark ? 'Light' : 'Dark';
+      // Update theme-color meta to match current background
+      const meta = document.querySelector('meta[name="theme-color"]');
+      if (meta) {
+        const bg = getComputedStyle(document.documentElement).getPropertyValue('--bg').trim() || '#000000';
+        meta.setAttribute('content', bg);
+      }
+    }
+  </script>
 </body>
-
 </html>
