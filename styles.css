@@ -9,7 +9,7 @@
   --card-border: #e6e6e6;
 
   /* Alt header tokens (light) */
-  --header-alt-bg: #000000;
+  --header-alt-bg: #2D2C25;
   --header-alt-fg: #ffffff;
 
   /* Component tweaks */
@@ -20,7 +20,7 @@
 /* Prefer dark = system dark tokens */
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #000000;
+    --bg: #2D2C25;
     --fg: #f5f5f5;
     --muted: #aaaaaa;
     --surface: #111111;
@@ -39,12 +39,12 @@ html[data-theme="light"] {
   --muted: #666666;
   --surface: #f7f7f7;
   --card-border: #e6e6e6;
-  --header-alt-bg: #000000;
+  --header-alt-bg: #2D2C25;
   --header-alt-fg: #ffffff;
   color-scheme: light;
 }
 html[data-theme="dark"] {
-  --bg: #000000;
+  --bg: #2D2C25;
   --fg: #f5f5f5;
   --muted: #aaaaaa;
   --surface: #111111;
@@ -187,4 +187,3 @@ main#app { padding: 12px; max-width: 1000px; margin: 0 auto; }
 
 /* Utilities */
 .hidden { display: none; }
-
