@@ -1,6 +1,922 @@
 [
-{ "id": "d-boxout-2man", "name": "2‑Man Box Out", "tags": ["rebounding","fundamentals"], "summary": "Partner box-out with coach shot.", "video_channel_ref": "playlist/rebounding-basics", "video_source": "YouTube", "diagram": "d-boxout-2man.png" },
-{ "id": "d-reb-2v2", "name": "2v2 Rebound Battle", "tags": ["rebounding","compete"], "summary": "Live 2v2 from coach shot; points for clean boards.", "video_channel_ref": "playlist/rebounding-compete", "video_source": "YouTube" },
-{ "id": "d-3lane-runout", "name": "3‑Lane Runout", "tags": ["transition","finishing"], "summary": "3‑man weave variant emphasizing first 3 steps." },
-{ "id": "d-5on5-advantage", "name": "5‑on‑5 Advantage", "tags": ["decision‑making","scrimmage"], "summary": "Start with 4v5, add trailer; teach pace and space." }
+  {
+    "id": "1",
+    "name": "Stationary Two-Ball Series",
+    "tags": [
+      "Ball-Handling & Warm Up Drills"
+    ],
+    "summary": "",
+    "setup": "Each player with 2 balls on baseline.",
+    "execution": "20 s each: low, high, cross, between, behind.",
+    "coaching_points": "Stay low; eyes up; fingertips, not palms.",
+    "common_errors": "",
+    "variations": "Add forward/back movement; time challenge.",
+    "diagram": "diagram-2ball.png",
+    "video_id": "",
+    "video_url": "",
+    "player_cues": "",
+    "reps": "",
+    "sets": "",
+    "equipment": ""
+  },
+  {
+    "id": "6",
+    "name": "Dynamic Warm-Up Circuit",
+    "tags": [
+      "Ball-Handling & Warm Up Drills"
+    ],
+    "summary": "",
+    "setup": "Players on baseline.",
+    "execution": "Jog, high-knees, butt-kicks, slides, backpedal to half ×2.",
+    "coaching_points": "Quality movement; posture; athletic arms.",
+    "common_errors": "",
+    "variations": "Add ball-handling to slides.",
+    "diagram": "diagram-dynamicwarmup.png",
+    "video_id": "",
+    "video_url": "",
+    "player_cues": "",
+    "reps": "",
+    "sets": "",
+    "equipment": ""
+  },
+  {
+    "id": "11",
+    "name": "Mikan Series (Both Hands)",
+    "tags": [
+      "Shooting & Finishing"
+    ],
+    "summary": "",
+    "setup": "One player under rim with ball.",
+    "execution": "Alternate R/L off glass without dribble.",
+    "coaching_points": "Eyes on square; inside foot; soft touch.",
+    "common_errors": "",
+    "variations": "Reverse Mikan next set.",
+    "diagram": "diagram-mikanseries.png",
+    "video_id": "",
+    "video_url": "",
+    "player_cues": "",
+    "reps": "",
+    "sets": "",
+    "equipment": ""
+  },
+  {
+    "id": "12",
+    "name": "Reverse Mikan",
+    "tags": [
+      "Shooting & Finishing"
+    ],
+    "summary": "",
+    "setup": "Under rim facing away.",
+    "execution": "Continuous reverse layups alternating sides.",
+    "coaching_points": "Use board; protect ball; balanced steps.",
+    "common_errors": "",
+    "variations": "Add light pad contact.",
+    "diagram": "diagram-reversemikan.png",
+    "video_id": "",
+    "video_url": "",
+    "player_cues": "",
+    "reps": "",
+    "sets": "",
+    "equipment": ""
+  },
+  {
+    "id": "14",
+    "name": "Form Shooting (BEEF)",
+    "tags": [
+      "Shooting & Finishing"
+    ],
+    "summary": "",
+    "setup": "Players 3–6 ft around key.",
+    "execution": "High reps focusing on B-E-E-F.",
+    "coaching_points": "Hold follow-through; arc; soft wrist snap.",
+    "common_errors": "",
+    "variations": "1-hand only; swishes-only round.",
+    "diagram": "diagram-formshooting.png",
+    "video_id": "",
+    "video_url": "",
+    "player_cues": "",
+    "reps": "",
+    "sets": "",
+    "equipment": ""
+  },
+  {
+    "id": "21",
+    "name": "Partner Passing Series",
+    "tags": [
+      "Passing & Spacing Drills"
+    ],
+    "summary": "",
+    "setup": "Pairs 10–12 ft apart, 1 ball.",
+    "execution": "10 chest, 10 bounce, 10 overhead; quick-release set.",
+    "coaching_points": "Snap wrists; thumbs down; step to target; talk.",
+    "common_errors": "",
+    "variations": "Add one-hand push; timed total.",
+    "diagram": "diagram-partnerpassing.png",
+    "video_id": "",
+    "video_url": "",
+    "player_cues": "",
+    "reps": "",
+    "sets": "",
+    "equipment": ""
+  },
+  {
+    "id": "29",
+    "name": "Layer 1 – Pass & Cut (Intro)",
+    "tags": [
+      "Read & React Offensive Drills"
+    ],
+    "summary": "",
+    "setup": "3–5 players spaced; no defense.",
+    "execution": "Pass → basket cut → fill; continuous.",
+    "coaching_points": "Cut hard; fill immediately; keep 15–18 ft.",
+    "common_errors": "",
+    "variations": "Add coach-guided help hand.",
+    "diagram": "diagram-randr-passcut.png",
+    "video_id": "",
+    "video_url": "",
+    "player_cues": "",
+    "reps": "",
+    "sets": "",
+    "equipment": ""
+  },
+  {
+    "id": "25",
+    "name": "Pass-and-Replace (L1 Review)",
+    "tags": [
+      "Passing & Spacing Drills"
+    ],
+    "summary": "",
+    "setup": "3–4 players on perimeter spots.",
+    "execution": "Pass, replace open spot, keep ball hot.",
+    "coaching_points": "Replace on time; talk through rotations.",
+    "common_errors": "",
+    "variations": "Add light defender to cue timing.",
+    "diagram": "diagram-passreplace.png",
+    "video_id": "",
+    "video_url": "",
+    "player_cues": "",
+    "reps": "",
+    "sets": "",
+    "equipment": ""
+  },
+  {
+    "id": "41",
+    "name": "1-on-1 Contain (No Middle)",
+    "tags": [
+      "Defensive Drills"
+    ],
+    "summary": "",
+    "setup": "Pairs at top; offense 3 dribbles.",
+    "execution": "Defender forces sideline; chest square; contain.",
+    "coaching_points": "Inside foot up; no reach; active hands.",
+    "common_errors": "",
+    "variations": "Weak-hand drives; add cones for help spots.",
+    "diagram": "diagram-1on1contain.png",
+    "video_id": "",
+    "video_url": "",
+    "player_cues": "",
+    "reps": "",
+    "sets": "",
+    "equipment": ""
+  },
+  {
+    "id": "40",
+    "name": "Closeout Technique Drill",
+    "tags": [
+      "Defensive Drills"
+    ],
+    "summary": "",
+    "setup": "Lines baseline; coach on wing.",
+    "execution": "Sprint → choppy steps → high hands; contest without flying by.",
+    "coaching_points": "High hands; controlled stop; call 'Ball!'.",
+    "common_errors": "",
+    "variations": "Add shot fake → 1-dribble drive recovery.",
+    "diagram": "diagram-closeouttechnique.png",
+    "video_id": "",
+    "video_url": "",
+    "player_cues": "",
+    "reps": "",
+    "sets": "",
+    "equipment": ""
+  },
+  {
+    "id": "52",
+    "name": "Rebounding Triangle Drill",
+    "tags": [
+      "Defensive Drills"
+    ],
+    "summary": "",
+    "setup": "3 O inside, 3 D outside triangle.",
+    "execution": "Coach shoots; D box out, pursue, two-hand board, outlet.",
+    "coaching_points": "Call 'Shot!'; hit & get; chin and outlet.",
+    "common_errors": "",
+    "variations": "Score 1 pt per D rebound.",
+    "diagram": "diagram-reboundingtriangle.png",
+    "video_id": "",
+    "video_url": "",
+    "player_cues": "",
+    "reps": "",
+    "sets": "",
+    "equipment": ""
+  },
+  {
+    "id": "38",
+    "name": "Layer 3 – Read & React Live Shell",
+    "tags": [
+      "Read & React Offensive Drills"
+    ],
+    "summary": "",
+    "setup": "4-on-4 controlled half-court.",
+    "execution": "Run L1 cuts in live context; coach dead-balls to teach spacing.",
+    "coaching_points": "Talk; space 15–18 ft; eyes on cutter.",
+    "common_errors": "",
+    "variations": "Require 3 passes before shot; 1 paint touch.",
+    "diagram": "diagram-randr-liveshell.png",
+    "video_id": "",
+    "video_url": "",
+    "player_cues": "",
+    "reps": "",
+    "sets": "",
+    "equipment": ""
+  },
+  {
+    "id": "3",
+    "name": "Full-Court Change-of-Pace",
+    "tags": [
+      "Ball-Handling & Warm Up Drills"
+    ],
+    "summary": "",
+    "setup": "Players on baseline, 1 ball each.",
+    "execution": "Slow to half → burst to baseline; repeat with crossover.",
+    "coaching_points": "Sell slow; explode after plant; protect ball.",
+    "common_errors": "",
+    "variations": "Add hesitation or inside-out at half.",
+    "diagram": "diagram-changepace.png",
+    "video_id": "",
+    "video_url": "",
+    "player_cues": "",
+    "reps": "",
+    "sets": "",
+    "equipment": ""
+  },
+  {
+    "id": "5",
+    "name": "Two-Ball Moving Pyramid",
+    "tags": [
+      "Ball-Handling & Warm Up Drills"
+    ],
+    "summary": "",
+    "setup": "Baseline start; two balls per player.",
+    "execution": "10 ft segments: cross → between → behind to far end.",
+    "coaching_points": "Stay in stance; keep rhythm; spacing between balls.",
+    "common_errors": "",
+    "variations": "Reverse order; race format.",
+    "diagram": "diagram-movingpyramid.png",
+    "video_id": "",
+    "video_url": "",
+    "player_cues": "",
+    "reps": "",
+    "sets": "",
+    "equipment": ""
+  },
+  {
+    "id": "13",
+    "name": "Power Layups (2-Foot Through Contact)",
+    "tags": [
+      "Shooting & Finishing"
+    ],
+    "summary": "",
+    "setup": "Lines on wings; coach with pad at rim.",
+    "execution": "1-dribble → two-foot jump through pad → finish.",
+    "coaching_points": "Two-foot gather; chin ball; land balanced.",
+    "common_errors": "",
+    "variations": "Finish off either foot; add weak-hand.",
+    "diagram": "diagram-powerlayups.png",
+    "video_id": "",
+    "video_url": "",
+    "player_cues": "",
+    "reps": "",
+    "sets": "",
+    "equipment": ""
+  },
+  {
+    "id": "19",
+    "name": "Finishing Through Contact (Pad)",
+    "tags": [
+      "Shooting & Finishing"
+    ],
+    "summary": "",
+    "setup": "Coach with pad inside restricted area.",
+    "execution": "Attack from slot/wing; absorb bump; finish off two.",
+    "coaching_points": "Protect ball; finish through chest; eyes up.",
+    "common_errors": "",
+    "variations": "Add Euro-step or floater.",
+    "diagram": "diagram-finishingcontact.png",
+    "video_id": "",
+    "video_url": "",
+    "player_cues": "",
+    "reps": "",
+    "sets": "",
+    "equipment": ""
+  },
+  {
+    "id": "15",
+    "name": "Around-the-Key Form Ladder",
+    "tags": [
+      "Shooting & Finishing"
+    ],
+    "summary": "",
+    "setup": "Spots around lane & short corner.",
+    "execution": "Make 3 in a row before moving; reset on miss.",
+    "coaching_points": "Routine; rim focus; soft snap.",
+    "common_errors": "",
+    "variations": "Reduce to 2-in-row for beginners.",
+    "diagram": "diagram-formladder.png",
+    "video_id": "",
+    "video_url": "",
+    "player_cues": "",
+    "reps": "",
+    "sets": "",
+    "equipment": ""
+  },
+  {
+    "id": "18",
+    "name": "1-Dribble Pull-Up (R/L)",
+    "tags": [
+      "Shooting & Finishing"
+    ],
+    "summary": "",
+    "setup": "Players at arc with balls.",
+    "execution": "Shot fake → 1 hard dribble → pull-up; rebound own shot.",
+    "coaching_points": "Hard first dribble; stop on two; vertical rise.",
+    "common_errors": "",
+    "variations": "Add contest hand; step-back.",
+    "diagram": "diagram-1dribblepullup.png",
+    "video_id": "",
+    "video_url": "",
+    "player_cues": "",
+    "reps": "",
+    "sets": "",
+    "equipment": ""
+  },
+  {
+    "id": "30",
+    "name": "Layer 1 – Front Cut & Backdoor Read",
+    "tags": [
+      "Read & React Offensive Drills"
+    ],
+    "summary": "",
+    "setup": "3-on-0 with top/wing spots.",
+    "execution": "Top to wing pass → front cut; next rep back cut vs denial.",
+    "coaching_points": "Read defender; cut decisively; seal if needed.",
+    "common_errors": "",
+    "variations": "Add guided defender.",
+    "diagram": "diagram-randr-frontbackcut.png",
+    "video_id": "",
+    "video_url": "",
+    "player_cues": "",
+    "reps": "",
+    "sets": "",
+    "equipment": ""
+  },
+  {
+    "id": "32",
+    "name": "Layer 2 – Dribble-At Back Cut",
+    "tags": [
+      "Read & React Offensive Drills"
+    ],
+    "summary": "",
+    "setup": "3-on-0; dribbler toward teammate.",
+    "execution": "Teammate back-cuts; next player fills; continuous.",
+    "coaching_points": "Recognize dribble-at cue; sharp back-cut.",
+    "common_errors": "",
+    "variations": "Add defense to test timing.",
+    "diagram": "diagram-randr-dribbleat.png",
+    "video_id": "",
+    "video_url": "",
+    "player_cues": "",
+    "reps": "",
+    "sets": "",
+    "equipment": ""
+  },
+  {
+    "id": "42",
+    "name": "Shell Drill (4-on-4 No Middle)",
+    "tags": [
+      "Defensive Drills"
+    ],
+    "summary": "",
+    "setup": "4 O vs 4 D half-court.",
+    "execution": "Jump to ball; deny middle; help early; rebound.",
+    "coaching_points": "Force sideline; loud talk; stance.",
+    "common_errors": "",
+    "variations": "Add skip passes; drive-and-kick.",
+    "diagram": "diagram-shell4on4.png",
+    "video_id": "",
+    "video_url": "",
+    "player_cues": "",
+    "reps": "",
+    "sets": "",
+    "equipment": ""
+  },
+  {
+    "id": "47",
+    "name": "Jump to the Ball Drill",
+    "tags": [
+      "Defensive Drills"
+    ],
+    "summary": "",
+    "setup": "Offense passes perimeter; D in denial.",
+    "execution": "Every pass → jump to ball line → recover.",
+    "coaching_points": "Quick jump as ball leaves hands; see ball & man.",
+    "common_errors": "",
+    "variations": "Add backdoor cuts.",
+    "diagram": "diagram-jumptoball.png",
+    "video_id": "",
+    "video_url": "",
+    "player_cues": "",
+    "reps": "",
+    "sets": "",
+    "equipment": ""
+  },
+  {
+    "id": "54",
+    "name": "Press Breaker 4-Across Setup",
+    "tags": [
+      "Special Situations"
+    ],
+    "summary": "",
+    "setup": "4 across FT line; 1 deep safety.",
+    "execution": "Inbound → wing/middle → reverse → advance.",
+    "coaching_points": "Stay wide; meet passes; middle early; reverse.",
+    "common_errors": "",
+    "variations": "Run 1-Up 3-Across; add 5-on-5.",
+    "diagram": "diagram-press4across.png",
+    "video_id": "",
+    "video_url": "",
+    "player_cues": "",
+    "reps": "",
+    "sets": "",
+    "equipment": ""
+  },
+  {
+    "id": "50",
+    "name": "5-Stop Challenge",
+    "tags": [
+      "Defensive Drills"
+    ],
+    "summary": "",
+    "setup": "5-on-5 half-court.",
+    "execution": "Defense earns 5 stops in a row; reset on score.",
+    "coaching_points": "Communicate; box out; finish plays.",
+    "common_errors": "",
+    "variations": "Use 3-stop mini-game.",
+    "diagram": "diagram-5stopchallenge.png",
+    "video_id": "",
+    "video_url": "",
+    "player_cues": "",
+    "reps": "",
+    "sets": "",
+    "equipment": ""
+  },
+  {
+    "id": "2",
+    "name": "Zig-Zag Control Dribble",
+    "tags": [
+      "Ball-Handling & Warm Up Drills"
+    ],
+    "summary": "",
+    "setup": "Cones every ~8 ft on sideline.",
+    "execution": "Change-of-direction at each cone full-court.",
+    "coaching_points": "Push outside body; explode after change.",
+    "common_errors": "",
+    "variations": "Add defender shadow.",
+    "diagram": "diagram-zigzag.png",
+    "video_id": "",
+    "video_url": "",
+    "player_cues": "",
+    "reps": "",
+    "sets": "",
+    "equipment": ""
+  },
+  {
+    "id": "17",
+    "name": "Drive–Kick–Extra Pass Shooting",
+    "tags": [
+      "Shooting & Finishing"
+    ],
+    "summary": "",
+    "setup": "Top, wing, corner lines.",
+    "execution": "Top drives → kick wing → one-more to corner → shot.",
+    "coaching_points": "Paint touch; pass on time; ready feet.",
+    "common_errors": "",
+    "variations": "Add stunt defender.",
+    "diagram": "diagram-drivekickextrapass.png",
+    "video_id": "",
+    "video_url": "",
+    "player_cues": "",
+    "reps": "",
+    "sets": "",
+    "equipment": ""
+  },
+  {
+    "id": "20",
+    "name": "Free Throw Pressure Ladder (1-and-1)",
+    "tags": [
+      "Shooting & Finishing"
+    ],
+    "summary": "",
+    "setup": "Team baseline; shooter at line.",
+    "execution": "1-and-1: make +1 → next shooter; miss = team slide.",
+    "coaching_points": "Same routine; breathe; aim spot.",
+    "common_errors": "",
+    "variations": "Set team goal to clear drill.",
+    "diagram": "diagram-ftpressureladder.png",
+    "video_id": "",
+    "video_url": "",
+    "player_cues": "",
+    "reps": "",
+    "sets": "",
+    "equipment": ""
+  },
+  {
+    "id": "33",
+    "name": "Layer 2 – Dribble Penetration Kick & Replace",
+    "tags": [
+      "Read & React Offensive Drills"
+    ],
+    "summary": "",
+    "setup": "3-on-0 to 3-on-3.",
+    "execution": "Drive middle → kick wing → wing penetrates opposite gap; top replaces.",
+    "coaching_points": "Drive to score; replace immediately.",
+    "common_errors": "",
+    "variations": "Add extra pass or closeout D.",
+    "diagram": "diagram-randr-kickreplace.png",
+    "video_id": "",
+    "video_url": "",
+    "player_cues": "",
+    "reps": "",
+    "sets": "",
+    "equipment": ""
+  },
+  {
+    "id": "34",
+    "name": "Layer 2 – Circle Movement Reaction",
+    "tags": [
+      "Read & React Offensive Drills"
+    ],
+    "summary": "",
+    "setup": "4–5 spots around arc.",
+    "execution": "Drive → perimeter circle move same direction.",
+    "coaching_points": "Move as ball moves; arc spacing.",
+    "common_errors": "",
+    "variations": "Live 4v4 circle movement.",
+    "diagram": "diagram-randr-circlemove.png",
+    "video_id": "",
+    "video_url": "",
+    "player_cues": "",
+    "reps": "",
+    "sets": "",
+    "equipment": ""
+  },
+  {
+    "id": "48",
+    "name": "2-on-2 Closeout–Help–Recover",
+    "tags": [
+      "Defensive Drills"
+    ],
+    "summary": "",
+    "setup": "Top & wing O; two defenders.",
+    "execution": "Top drives → help from wing → recover on kick.",
+    "coaching_points": "Early help; short closeout; balance.",
+    "common_errors": "",
+    "variations": "Add pass fake.",
+    "diagram": "diagram-2on2helprecover.png",
+    "video_id": "",
+    "video_url": "",
+    "player_cues": "",
+    "reps": "",
+    "sets": "",
+    "equipment": ""
+  },
+  {
+    "id": "44",
+    "name": "Closeout–Boxout Combo",
+    "tags": [
+      "Defensive Drills"
+    ],
+    "summary": "",
+    "setup": "Two lines baseline; coach on wing.",
+    "execution": "Closeout → coach shoots → box out live for board.",
+    "coaching_points": "Connect closeout to rebound; two-hand board.",
+    "common_errors": "",
+    "variations": "Add second O rebounder.",
+    "diagram": "diagram-closeoutboxout.png",
+    "video_id": "",
+    "video_url": "",
+    "player_cues": "",
+    "reps": "",
+    "sets": "",
+    "equipment": ""
+  },
+  {
+    "id": "56",
+    "name": "Baseline (BLOB) Box Series",
+    "tags": [
+      "Special Situations"
+    ],
+    "summary": "",
+    "setup": "4 in box; inbound baseline.",
+    "execution": "Screen-the-screener; first cutter rim; second corner; read.",
+    "coaching_points": "Solid screens; timing; inbound poise.",
+    "common_errors": "",
+    "variations": "Counter: inbounder return 3.",
+    "diagram": "diagram-blobbox.png",
+    "video_id": "",
+    "video_url": "",
+    "player_cues": "",
+    "reps": "",
+    "sets": "",
+    "equipment": ""
+  },
+  {
+    "id": "58",
+    "name": "Sideline (SLOB) Box Series",
+    "tags": [
+      "Special Situations"
+    ],
+    "summary": "",
+    "setup": "4 in box near sideline.",
+    "execution": "Top screen for cutter; weak-side long option; read help.",
+    "coaching_points": "Spacing; seal; strong inbound pass.",
+    "common_errors": "",
+    "variations": "Add 5-sec pressure count.",
+    "diagram": "diagram-slobbox.png",
+    "video_id": "",
+    "video_url": "",
+    "player_cues": "",
+    "reps": "",
+    "sets": "",
+    "equipment": ""
+  },
+  {
+    "id": "45",
+    "name": "3-on-3 Shell (Early Help Emphasis)",
+    "tags": [
+      "Defensive Drills"
+    ],
+    "summary": "",
+    "setup": "Three O spots; three D.",
+    "execution": "Ball moves → gap help early; talk.",
+    "coaching_points": "See ball & man; early gap; constant talk.",
+    "common_errors": "",
+    "variations": "Drive on every 3rd pass.",
+    "diagram": "diagram-3on3shell.png",
+    "video_id": "",
+    "video_url": "",
+    "player_cues": "",
+    "reps": "",
+    "sets": "",
+    "equipment": ""
+  },
+  {
+    "id": "16",
+    "name": "10-Spot Form Contest",
+    "tags": [
+      "Shooting & Finishing"
+    ],
+    "summary": "",
+    "setup": "Ten close spots marked.",
+    "execution": "30–45s to make as many; track PBs.",
+    "coaching_points": "Quick set feet; catch-ready hands.",
+    "common_errors": "",
+    "variations": "Partner rebounder; weak-hand bonus.",
+    "diagram": "diagram-10spotcontest.png",
+    "video_id": "",
+    "video_url": "",
+    "player_cues": "",
+    "reps": "",
+    "sets": "",
+    "equipment": ""
+  },
+  {
+    "id": "36",
+    "name": "Layer 3 – Skip Pass & Attack",
+    "tags": [
+      "Read & React Offensive Drills"
+    ],
+    "summary": "",
+    "setup": "4 spots filled; one ball.",
+    "execution": "Skip → attack closeout → circle move.",
+    "coaching_points": "Attack closeout; next fills; drive to score.",
+    "common_errors": "",
+    "variations": "Add defender; paint kick-out.",
+    "diagram": "diagram-randr-skippass.png",
+    "video_id": "",
+    "video_url": "",
+    "player_cues": "",
+    "reps": "",
+    "sets": "",
+    "equipment": ""
+  },
+  {
+    "id": "37",
+    "name": "Layer 3 – Drive, Kick, One-More",
+    "tags": [
+      "Read & React Offensive Drills"
+    ],
+    "summary": "",
+    "setup": "3-on-0 to 3-on-3.",
+    "execution": "Top drives → wing → one-more to corner → shot.",
+    "coaching_points": "Paint touch; extra pass; ready feet.",
+    "common_errors": "",
+    "variations": "3v3 live scoring game.",
+    "diagram": "diagram-randr-onemore.png",
+    "video_id": "",
+    "video_url": "",
+    "player_cues": "",
+    "reps": "",
+    "sets": "",
+    "equipment": ""
+  },
+  {
+    "id": "43",
+    "name": "Help & Recover Rotation",
+    "tags": [
+      "Defensive Drills"
+    ],
+    "summary": "",
+    "setup": "4v4 or 5v5.",
+    "execution": "Coach drives; help slides; rotate & recover.",
+    "coaching_points": "Early help; hands high; under control.",
+    "common_errors": "",
+    "variations": "Add extra pass scramble.",
+    "diagram": "diagram-helprecover.png",
+    "video_id": "",
+    "video_url": "",
+    "player_cues": "",
+    "reps": "",
+    "sets": "",
+    "equipment": ""
+  },
+  {
+    "id": "46",
+    "name": "Tag & Go Rotation Drill",
+    "tags": [
+      "Defensive Drills"
+    ],
+    "summary": "",
+    "setup": "4v4 with cutter/post.",
+    "execution": "Help tags cutter → recovers to man.",
+    "coaching_points": "Low stance; active hands; call 'tag'.",
+    "common_errors": "",
+    "variations": "Add live drive and post feed.",
+    "diagram": "diagram-tagandgo.png",
+    "video_id": "",
+    "video_url": "",
+    "player_cues": "",
+    "reps": "",
+    "sets": "",
+    "equipment": ""
+  },
+  {
+    "id": "55",
+    "name": "Press Breaker 1-Up 3-Across Continuity",
+    "tags": [
+      "Special Situations"
+    ],
+    "summary": "",
+    "setup": "1 high, 3 across FT line, 1 deep.",
+    "execution": "Inbound → reverse through trail → sideline or middle cutter.",
+    "coaching_points": "Reverse > dribble; spacing 15 ft; talk outlets.",
+    "common_errors": "",
+    "variations": "Work vs zone press.",
+    "diagram": "diagram-press1up3across.png",
+    "video_id": "",
+    "video_url": "",
+    "player_cues": "",
+    "reps": "",
+    "sets": "",
+    "equipment": ""
+  },
+  {
+    "id": "4",
+    "name": "Partner Mirror Dribble",
+    "tags": [
+      "Ball-Handling & Warm Up Drills"
+    ],
+    "summary": "",
+    "setup": "Partners face on lane lines.",
+    "execution": "Leader performs moves; follower mirrors; switch :30.",
+    "coaching_points": "Eye contact; quick reaction; mirror feet.",
+    "common_errors": "",
+    "variations": "Add fake passes; reduce space.",
+    "diagram": "diagram-mirrordrill.png",
+    "video_id": "",
+    "video_url": "",
+    "player_cues": "",
+    "reps": "",
+    "sets": "",
+    "equipment": ""
+  },
+  {
+    "id": "9",
+    "name": "Full-Court Layup Lines",
+    "tags": [
+      "Ball-Handling & Warm Up Drills"
+    ],
+    "summary": "",
+    "setup": "Two lines, each sideline/corner.",
+    "execution": "Dribble full-court; finish; next rebounds and goes.",
+    "coaching_points": "Correct hand/foot; eyes on square; strong finish.",
+    "common_errors": "",
+    "variations": "Add Euro or reverse.",
+    "diagram": "diagram-layuplines.png",
+    "video_id": "",
+    "video_url": "",
+    "player_cues": "",
+    "reps": "",
+    "sets": "",
+    "equipment": ""
+  },
+  {
+    "id": "35",
+    "name": "Layer 3 – Post Feed & Cut",
+    "tags": [
+      "Read & React Offensive Drills"
+    ],
+    "summary": "",
+    "setup": "3-on-3 with post.",
+    "execution": "Entry to post → passer cuts/relocates; post kick-out read.",
+    "coaching_points": "Relocate after feed; keep spacing wide.",
+    "common_errors": "",
+    "variations": "Add post defender.",
+    "diagram": "diagram-randr-postfeed.png",
+    "video_id": "",
+    "video_url": "",
+    "player_cues": "",
+    "reps": "",
+    "sets": "",
+    "equipment": ""
+  },
+  {
+    "id": "51",
+    "name": "Transition Defense Sprint Back",
+    "tags": [
+      "Defensive Drills"
+    ],
+    "summary": "",
+    "setup": "5 lines baseline; coach toss to O.",
+    "execution": "Sprint to paint; stop ball; match; talk.",
+    "coaching_points": "Sprint; point & talk; locate.",
+    "common_errors": "",
+    "variations": "Numbered matchup calls.",
+    "diagram": "diagram-transitiondefense.png",
+    "video_id": "",
+    "video_url": "",
+    "player_cues": "",
+    "reps": "",
+    "sets": "",
+    "equipment": ""
+  },
+  {
+    "id": "53",
+    "name": "Pressure–Recover Scramble Drill",
+    "tags": [
+      "Defensive Drills"
+    ],
+    "summary": "",
+    "setup": "4 D vs 3 O passers.",
+    "execution": "Trap first pass → rotate to open → recover.",
+    "coaching_points": "Controlled trap; sprint rotation chain.",
+    "common_errors": "",
+    "variations": "Add shot to finish with rebound.",
+    "diagram": "diagram-pressurerecover.png",
+    "video_id": "",
+    "video_url": "",
+    "player_cues": "",
+    "reps": "",
+    "sets": "",
+    "equipment": ""
+  },
+  {
+    "id": "59",
+    "name": "Late-Game Situational Scrimmage",
+    "tags": [
+      "Special Situations"
+    ],
+    "summary": "",
+    "setup": "5v5; coach calls scenarios.",
+    "execution": "Down 2 (:10), up 1 (:20), ATOs, foul/defend.",
+    "coaching_points": "Know time/score; huddles; execute calmly.",
+    "common_errors": "",
+    "variations": "Random inbound locations.",
+    "diagram": "diagram-lategamescrimmage.png",
+    "video_id": "",
+    "video_url": "",
+    "player_cues": "",
+    "reps": "",
+    "sets": "",
+    "equipment": ""
+  }
 ]

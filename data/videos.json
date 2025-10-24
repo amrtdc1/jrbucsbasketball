@@ -1,8 +1,3 @@
 {
-"channels": [
-{ "id": "c-team-playlist", "title": "Team Playlist", "url": "https://www.youtube.com/playlist?list=YOUR_PLAYLIST_ID" }
-],
-"references": [
-{ "id": "v-playlist-bigman", "channel": "Team Playlist", "source": "YouTube", "url": "https://www.youtube.com/playlist?list=YOUR_PLAYLIST_ID" }
-]
+  "videos": []
 }
