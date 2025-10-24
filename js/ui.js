@@ -327,6 +327,19 @@ export async function renderRoster() {
     </table>`;
 }
 
+// ---------- ABOUT (simple page to satisfy router) ----------
+export async function renderAbout() {
+  const settings = await loadSettings();
+  return `
+    <section class="card">
+      <div class="card-header alt">About ${settings.team_name || "Team"}</div>
+      <div class="card-body">
+        <p>This is a lightweight team hub for practices, drills, videos, and roster management.</p>
+        <p class="meta">Edit content in the <code>/data</code> folder. Theme: ${settings.theme || "auto"}</p>
+      </div>
+    </section>`;
+}
+
 // ---------- Global UI hooks ----------
 (function bootUI() {
   const app = document.getElementById("app");
