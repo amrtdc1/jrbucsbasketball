@@ -98,8 +98,7 @@ export async function renderHome() {
                 <p>${a.body || ""}</p>
               </li>
             `).join("")}
-          </ul>
-          <p class="meta">Edit announcements in <code>/data/announcements.json</code></p>
+          </ul>          
         </div>
       </div>
     </section>`;
@@ -408,3 +407,4 @@ export async function renderAbout() {
 
   // (Roster sorting retained from earlier version if you added it)
 })();
+
