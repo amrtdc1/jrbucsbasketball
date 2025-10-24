@@ -318,6 +318,19 @@ export async function renderRoster() {
     </table>`;
 }
 
+// ---------- ABOUT ----------
+export async function renderAbout() {
+  return `
+    <section class="card">
+      <div class="card-header alt">About Jr Bucs Basketball</div>
+      <div class="card-body">
+        <p>This app helps coaches and players organize practice plans, drills, and team information.</p>
+        <p>Version 1.0</p>
+      </div>
+    </section>`;
+}
+
+
 // ---------- Global UI hooks ----------
 (function bootUI() {
   const app = document.getElementById("app");
