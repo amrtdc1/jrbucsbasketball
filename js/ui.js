@@ -1,10 +1,10 @@
 /** js/ui.js — views, theme helpers, and utilities
  * Exports:
  *  - loadJSON, loadSettings
- *  - applyTheme, setTheme (alias)
+ *  - applyTheme, setTheme (alias), initThemeFromSettings, toggleTheme
  *  - renderHome, renderPractice, renderDrills, renderMentorship, renderRoster, renderAbout
- * Includes: collapsible Practice Plans, correct ordering (future first, then past),
- *           drills search + clear, mentorship QR codes, and persisted collapse state.
+ * Includes: collapsible Practice Plans (with persisted state), correct ordering (future first, then past),
+ *           drills search + clear, mentorship QR codes.
  */
 
 /* ---------------- Fetch helpers ---------------- */
@@ -34,8 +34,25 @@ export function applyTheme(mode = "auto") {
   }
   try { localStorage.setItem("theme", mode); } catch {}
 }
-// Back-compat: if index.html imports setTheme, this still works.
+
+// Back-compat alias (safe to keep even if not used)
 export const setTheme = applyTheme;
+
+// NEW: initialize theme from saved value or settings.json, return the resolved mode
+export function initThemeFromSettings(settings = {}) {
+  const saved = localStorage.getItem("theme");
+  const mode = saved || settings.theme || "auto";
+  applyTheme(mode);
+  return mode;
+}
+
+// Optional: UI toggle helper (returns the new mode)
+export function toggleTheme() {
+  const current = localStorage.getItem("theme") || "auto";
+  const next = current === "dark" ? "light" : "dark";
+  applyTheme(next);
+  return next;
+}
 
 /* ---------------- Formatting ---------------- */
 const fmtDate = (iso) => {
