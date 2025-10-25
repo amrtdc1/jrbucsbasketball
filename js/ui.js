@@ -38,7 +38,7 @@ export function applyTheme(mode = "auto") {
 // Back-compat alias (safe to keep even if not used)
 export const setTheme = applyTheme;
 
-// NEW: initialize theme from saved value or settings.json, return the resolved mode
+// Initialize theme from saved value or settings.json; returns resolved mode
 export function initThemeFromSettings(settings = {}) {
   const saved = localStorage.getItem("theme");
   const mode = saved || settings.theme || "auto";
@@ -46,7 +46,7 @@ export function initThemeFromSettings(settings = {}) {
   return mode;
 }
 
-// Optional: UI toggle helper (returns the new mode)
+// Optional: toggle helper (returns the new mode)
 export function toggleTheme() {
   const current = localStorage.getItem("theme") || "auto";
   const next = current === "dark" ? "light" : "dark";
@@ -161,8 +161,9 @@ export async function renderPractice() {
     const isTopOpen = getPersistedOpen(topKey, idx === 0); // nearest upcoming open by default
     const isSegOpen = getPersistedOpen(segKey, true);
 
-    const segHtml = segs.map(seg => {
-      const drills = (seg.drills || [])
+    // Build each segment's HTML (use local drillsHtml INSIDE the map)
+    const segmentsHtml = segs.map(seg => {
+      const drillsHtml = (seg.drills || [])
         .sort((a,b) => (a.drill_order||0) - (b.drill_order||0))
         .map(d => {
           const tags = (d.drill_category || "").split(/[|,]/).map(s => s.trim()).filter(Boolean);
@@ -203,7 +204,7 @@ export async function renderPractice() {
           <div class="card-body">
             ${seg.objective ? `<p><strong>Objective:</strong> ${seg.objective}</p>` : ""}
             ${seg.cues_headline ? `<p><strong>Cues:</strong> ${seg.cues_headline}</p>` : ""}
-            ${segHtml ? `<ol class="list">${segHtml}</ol>` : `<p class="meta">No drills listed.</p>`}
+            ${drillsHtml ? `<ol class="list">${drillsHtml}</ol>` : `<p class="meta">No drills listed.</p>`}
           </div>
         </section>
       `;
@@ -238,7 +239,7 @@ export async function renderPractice() {
           <details class="card" data-persist="${segKey}" ${isSegOpen ? "open" : ""}>
             <summary class="card-header">Practice Segments (${segs.length}) <span class="chev" aria-hidden="true">›</span></summary>
             <div class="card-body">
-              ${segHtml || `<p class="meta">No segments.</p>`}
+              ${segmentsHtml || `<p class="meta">No segments.</p>`}
             </div>
           </details>
 
