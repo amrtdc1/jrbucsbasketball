@@ -3,25 +3,27 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="theme-color" content="#000000" />
+  <meta name="theme-color" content="#2D2C25" />
   <link rel="manifest" href="./manifest.webmanifest" />
   <link rel="stylesheet" href="./styles.css" />
   <title>Jr Bucs Team Hub</title>
 </head>
 <body>
   <header class="app-header">
-    <h1 id="appTitle">Jr Bucs Team Hub</h1>
+  <div class="header-left"></div>
 
-    <div class="row">
-      <!-- NEW: Light/Dark toggle -->
-      <button id="btnTheme" class="btn theme-toggle" aria-label="Toggle theme" aria-pressed="false">
-        <span id="themeIcon" aria-hidden="true">🌙</span>
-        <span id="themeLabel">Dark</span>
-      </button>
+  <h1 id="appTitle" class="app-title">Jr Bucs Team Hub</h1>
 
-      <button id="btnInstall" class="ghost" aria-label="Install app" hidden>Install</button>
-    </div>
-  </header>
+  <div class="header-right row">
+    <!-- keep whatever you already have here (theme toggle, install, etc.) -->
+    <button id="btnTheme" class="btn theme-toggle" aria-label="Toggle theme" aria-pressed="false">
+      <span id="themeIcon" aria-hidden="true">🌙</span>
+      <span id="themeLabel">Dark</span>
+    </button>
+    <button id="btnInstall" class="ghost" aria-label="Install app" hidden>Install</button>
+  </div>
+</header>
+
 
   <nav class="tabs" role="navigation" aria-label="Primary">
     <a href="#/" data-route>Home</a>
@@ -88,7 +90,7 @@
       // Update theme-color meta to match current background
       const meta = document.querySelector('meta[name="theme-color"]');
       if (meta) {
-        const bg = getComputedStyle(document.documentElement).getPropertyValue('--bg').trim() || '#000000';
+        const bg = getComputedStyle(document.documentElement).getPropertyValue('--bg').trim() || '#2D2C25';
         meta.setAttribute('content', bg);
       }
     }
