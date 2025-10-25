@@ -117,7 +117,7 @@ body {
 }
 
 /* optional: hide the "Dark/Light" label on very tight screens to free space */
-@media (max-width: 380px) {
+@media (max-width: 400px) {
   #themeLabel { display: none; }
 }
 
@@ -308,3 +308,4 @@ details > summary::-webkit-details-marker { display: none; }
 details[open] .card-header .chev { transform: rotate(90deg); }
 
 details .card-body { padding: var(--pad); border-top: 1px solid var(--card-border); }
+
