@@ -73,41 +73,53 @@ body {
 }
 
 /* ========== Header & Tabs ========== */
+/* Header as a 3-col grid: [spacer] [title] [actions] */
 .app-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-  padding: 12px 16px;
-  border-bottom: 1px solid var(--card-border);
   position: sticky;
   top: 0;
-  background: var(--bg);
   z-index: 10;
+  background: var(--bg);
+  border-bottom: 1px solid var(--card-border);
+
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 8px;
+
+  /* padding + safe-area for iPhone notch */
+  padding-top: calc(var(--pad) + env(safe-area-inset-top));
+  padding-right: calc(16px + env(safe-area-inset-right));
+  padding-bottom: var(--pad);
+  padding-left:  calc(16px + env(safe-area-inset-left));
 }
 
-/* Center the title within the header */
-.app-header #appTitle {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
+/* left spacer (keeps title truly centered) */
+.header-left { min-width: 0; }
+
+/* right controls: don't let them shrink */
+.header-right { justify-self: end; display: flex; gap: 8px; align-items: center; flex-wrap: nowrap; }
+.header-right > * { flex: 0 0 auto; }
+
+/* centered title that shrinks before it ellipses */
+.app-title {
+  grid-column: 2;
+  justify-self: center;
   margin: 0;
+  min-width: 0;             /* allow ellipsis */
   text-align: center;
-  max-width: 70vw;
-  /* prevent overlap on small screens */
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  pointer-events: none;
-  /* keeps right-side buttons clickable if overlapping */
+
+  /* shrink on small screens, cap on large */
+  font-size: clamp(0.95rem, 3.8vw, 1.35rem);
+  line-height: 1.2;
 }
 
-.app-header .row {
-  display: flex;
-  gap: 8px;
-  align-items: center;
+/* optional: hide the "Dark/Light" label on very tight screens to free space */
+@media (max-width: 380px) {
+  #themeLabel { display: none; }
 }
-
 
 /* Buttons */
 .btn,
