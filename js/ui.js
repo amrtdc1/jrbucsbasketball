@@ -174,7 +174,7 @@ export async function renderPractice() {
     const planKey = `pp_open_${baseKey}`;
     const isPlanOpen = getPersistedOpen(planKey, pIdx === 0); // nearest upcoming open
 
-    // Build each segment as its own <details class="card">
+    // Build each segment as its own <details class="card"> with a styled "seg" header
     const segBlocks = await Promise.all(segs.map(async (seg, sIdx) => {
       const segKey = `pp_seg_${baseKey}_${seg.segment_order ?? sIdx}`;
       const isSegOpen = getPersistedOpen(segKey, true);
@@ -192,7 +192,7 @@ export async function renderPractice() {
               d.variations ? `<p><strong>Variations:</strong> ${d.variations}</p>` : "",
             ].join("");
 
-            // Show diagram only if file exists
+            // Show diagram only if the file actually exists
             let diagramBlock = "";
             if (d.diagram) {
               const url = `./diagrams/${d.diagram}`;
@@ -221,12 +221,13 @@ export async function renderPractice() {
           })
       )).join("");
 
-      const segTitle = `${seg.segment_name || "Segment"}${seg.duration_min ? ` - ${seg.duration_min} min` : ""}`;
+      const segTitle = seg.segment_name || "Segment";
+      const segDur   = seg.duration_min ? `<span class="pill">${seg.duration_min} min</span>` : "";
 
       return `
         <details class="card" data-persist="${segKey}" ${isSegOpen ? "open" : ""}>
-          <summary class="card-header">
-            ${segTitle}
+          <summary class="card-header seg">
+            ${segTitle} ${segDur}
             <span class="chev" aria-hidden="true">›</span>
           </summary>
           <div class="card-body">
