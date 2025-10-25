@@ -1,91 +1,96 @@
-/** ui.js — views + data helpers + theme + collapsible Practice Plans */
+/** js/ui.js — views, theme helpers, and utilities
+ * Exports:
+ *  - loadJSON, loadSettings
+ *  - applyTheme, setTheme (alias)
+ *  - renderHome, renderPractice, renderDrills, renderMentorship, renderRoster, renderAbout
+ * Includes: collapsible Practice Plans, correct ordering (future first, then past),
+ *           drills search + clear, mentorship QR codes, and persisted collapse state.
+ */
 
-// ---------- Small fetch helper ----------
+/* ---------------- Fetch helpers ---------------- */
 const cacheBust = () => `?v=${globalThis.crypto?.randomUUID?.() || Date.now()}`;
+
 async function fetchJSON(url, fallback) {
   try {
-    const res = await fetch(url + cacheBust(), { cache: 'no-store' });
-    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const res = await fetch(url + cacheBust(), { cache: "no-store" });
+    if (!res.ok) throw new Error("HTTP " + res.status);
     return await res.json();
   } catch {
     return fallback;
   }
 }
 
-export async function loadJSON(path)    { return fetchJSON(path, []); }
-export async function loadSettings()    { return fetchJSON('./data/settings.json', { team_name: 'Team Hub', theme: 'auto' }); }
+export async function loadJSON(path) { return fetchJSON(path, []); }
+export async function loadSettings() { return fetchJSON("./data/settings.json", { team_name: "Team Hub", theme: "auto" }); }
 
-// ---------- Theme helpers ----------
-export function applyTheme(mode = 'auto') {
-  if (mode === 'auto') {
-    document.documentElement.removeAttribute('data-theme');
-    document.documentElement.style.colorScheme = 'light dark';
+/* ---------------- Theme helpers ---------------- */
+export function applyTheme(mode = "auto") {
+  if (mode === "auto") {
+    document.documentElement.removeAttribute("data-theme");
+    document.documentElement.style.colorScheme = "light dark";
   } else {
-    document.documentElement.setAttribute('data-theme', mode);
+    document.documentElement.setAttribute("data-theme", mode);
     document.documentElement.style.colorScheme = mode;
   }
-  localStorage.setItem('theme', mode);
+  try { localStorage.setItem("theme", mode); } catch {}
 }
-export function initThemeFromSettings(settings = {}) {
-  const saved = localStorage.getItem('theme');
-  const mode = saved || settings.theme || 'auto';
-  applyTheme(mode);
-  return mode;
-}
-export function toggleTheme() {
-  const current = localStorage.getItem('theme') || 'auto';
-  const next = current === 'dark' ? 'light' : 'dark';
-  applyTheme(next);
-  return next;
-}
+// Back-compat: if index.html imports setTheme, this still works.
+export const setTheme = applyTheme;
 
-// ---------- Formatting ----------
+/* ---------------- Formatting ---------------- */
 const fmtDate = (iso) => {
   try {
-    return new Date(iso).toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric' });
+    return new Date(iso).toLocaleDateString(undefined, { weekday: "short", month: "short", day: "numeric" });
   } catch { return iso; }
 };
 
-// ---------- Data caches ----------
+/* ---------------- Data caches ---------------- */
 let drillsLibCache = null;
 async function ensureDrillsLib() {
-  if (!drillsLibCache) drillsLibCache = await loadJSON('./data/drills.json');
+  if (!drillsLibCache) drillsLibCache = await loadJSON("./data/drills.json");
   return drillsLibCache;
 }
 
-// ---------- Helpers: practice ordering + persistence ----------
+/* ---------------- Helpers: next practice & ordering ---------------- */
+function getNextPractice(plans, now = new Date()) {
+  const today = new Date(now); today.setHours(0,0,0,0);
+  return (plans || [])
+    .filter(p => Number.isFinite(new Date(p.date).getTime()))
+    .filter(p => new Date(p.date).setHours(0,0,0,0) >= today.getTime())
+    .sort((a, b) => new Date(a.date) - new Date(b.date))[0] || null;
+}
+
 function orderPractices(plans, now = new Date()) {
-  const nowMs = now.setHours(0,0,0,0);
+  const d0 = new Date(now); d0.setHours(0,0,0,0);
   const valid = (plans || []).filter(p => Number.isFinite(new Date(p.date).getTime()));
-  const future = valid.filter(p => new Date(p.date).setHours(0,0,0,0) >= nowMs)
-                      .sort((a, b) => new Date(a.date) - new Date(b.date));
-  const past   = valid.filter(p => new Date(p.date).setHours(0,0,0,0) <  nowMs)
-                      .sort((a, b) => new Date(a.date) - new Date(b.date));
+  const future = valid.filter(p => new Date(p.date).setHours(0,0,0,0) >= d0.getTime())
+                      .sort((a,b) => new Date(a.date) - new Date(b.date));
+  const past   = valid.filter(p => new Date(p.date).setHours(0,0,0,0) <  d0.getTime())
+                      .sort((a,b) => new Date(a.date) - new Date(b.date));
   return [...future, ...past];
 }
 
+/* ---------------- Persisted <details> state ---------------- */
 function getPersistedOpen(key, def = false) {
-  const v = localStorage.getItem(key);
-  if (v === null) return def;
-  return v === '1';
+  try {
+    const v = localStorage.getItem(key);
+    if (v === null) return def;
+    return v === "1";
+  } catch { return def; }
 }
 function setPersistedOpen(key, isOpen) {
-  try { localStorage.setItem(key, isOpen ? '1' : '0'); } catch {}
+  try { localStorage.setItem(key, isOpen ? "1" : "0"); } catch {}
 }
 
-// ---------- HOME ----------
+/* ---------------- Views ---------------- */
 export async function renderHome() {
   const [settings, ann, plans] = await Promise.all([
     loadSettings(),
-    loadJSON('./data/announcements.json'),
-    loadJSON('./data/practice_plans.json'),
+    loadJSON("./data/announcements.json"),
+    loadJSON("./data/practice_plans.json"),
   ]);
 
-  // Pick earliest upcoming (>= today)
-  const today = new Date(); today.setHours(0, 0, 0, 0);
-  const next = [...(plans || [])]
-    .filter(p => new Date(p.date).setHours(0,0,0,0) >= today.getTime())
-    .sort((a, b) => new Date(a.date) - new Date(b.date))[0];
+  const next = getNextPractice(plans);
 
   return `
     <section class="grid">
@@ -97,9 +102,9 @@ export async function renderHome() {
               <div class="meta">
                 ${fmtDate(next.date)}
                 ${next.location ? ` • ${next.location}` : ""}
-                ${next.theme_title ? ` • ${next.theme_title}` : (next.theme || "")}
+                ${next.theme_title ? ` • ${next.theme_title}` : ""}
               </div>
-              ${next.notes_coach ? `<p>${next.notes_coach}</p>` : (next.focus ? `<p>${next.focus}</p>` : "")}
+              ${next.notes_coach ? `<p>${next.notes_coach}</p>` : ""}
               <a class="badge" href="#/practice">View all plans →</a>
             ` : `<p>No upcoming practices yet.</p>`
           }
@@ -121,33 +126,29 @@ export async function renderHome() {
           <p class="meta">Edit announcements in <code>/data/announcements.json</code></p>
         </div>
       </div>
-    </section>`;
+    </section>
+  `;
 }
 
-// ---------- PRACTICE PLANS (collapsible + sorted with nearest upcoming first) ----------
 export async function renderPractice() {
-  const plansRaw = await loadJSON('./data/practice_plans.json');
+  const plansRaw = await loadJSON("./data/practice_plans.json");
   const plans = orderPractices(plansRaw);
 
   const html = plans.map((p, idx) => {
-    const segs = (p.items || []).filter(i => i.type === 'segment');
-    const mentors = (p.items || []).filter(i => i.type === 'mentorship');
+    const segs = (p.items || []).filter(i => i.type === "segment");
+    const mentors = (p.items || []).filter(i => i.type === "mentorship");
 
-    // Persisted open states
-    const topKey = `pp_open_${p.id || p.practice_id || idx}`;
-    const segKey = `pp_seg_open_${p.id || p.practice_id || idx}`;
-    const defaultTopOpen = (idx === 0); // open the very first (nearest upcoming) by default
-    const isTopOpen = getPersistedOpen(topKey, defaultTopOpen);
+    const keyBase = p.id || p.practice_id || `p${idx}`;
+    const topKey = `pp_open_${keyBase}`;
+    const segKey = `pp_seg_open_${keyBase}`;
+    const isTopOpen = getPersistedOpen(topKey, idx === 0); // nearest upcoming open by default
     const isSegOpen = getPersistedOpen(segKey, true);
 
-    // Segments list (each segment as a simple card; could also be nested <details> if desired)
     const segHtml = segs.map(seg => {
-      const drills = seg.drills || [];
-      const drillsHtml = drills
+      const drills = (seg.drills || [])
         .sort((a,b) => (a.drill_order||0) - (b.drill_order||0))
         .map(d => {
-          const tags = (d.drill_category || "")
-            .split(/[|,]/).map(s => s.trim()).filter(Boolean);
+          const tags = (d.drill_category || "").split(/[|,]/).map(s => s.trim()).filter(Boolean);
           const prose = [
             d.setup ? `<p><strong>Setup:</strong> ${d.setup}</p>` : "",
             d.execution ? `<p><strong>Instructions:</strong> ${d.execution}</p>` : "",
@@ -175,18 +176,20 @@ export async function renderPractice() {
                 ${diagramBlock}
                 ${videoLink}
               </div>
-            </li>`;
+            </li>
+          `;
         }).join("");
 
       return `
         <section class="card">
-          <div class="card-header">${seg.segment_name || "Segment"} ${seg.duration_min ? `<span class="meta">• ${seg.duration_min} min</span>` : ""}</div>
+          <div class="card-header">${seg.segment_name || "Segment"}${seg.duration_min ? ` <span class="meta">• ${seg.duration_min} min</span>` : ""}</div>
           <div class="card-body">
             ${seg.objective ? `<p><strong>Objective:</strong> ${seg.objective}</p>` : ""}
             ${seg.cues_headline ? `<p><strong>Cues:</strong> ${seg.cues_headline}</p>` : ""}
-            ${drillsHtml ? `<ol class="list">${drillsHtml}</ol>` : `<p class="meta">No drills listed.</p>`}
+            ${segHtml ? `<ol class="list">${segHtml}</ol>` : `<p class="meta">No drills listed.</p>`}
           </div>
-        </section>`;
+        </section>
+      `;
     }).join("");
 
     const mentorHtml = mentors.map(m => `
@@ -206,18 +209,17 @@ export async function renderPractice() {
       </section>
     `).join("");
 
-    // High-level practice collapsible (card-as-details)
     return `
-      <details class="card" data-persist="${topKey}" ${isTopOpen ? 'open' : ''}>
+      <details class="card" data-persist="${topKey}" ${isTopOpen ? "open" : ""}>
         <summary class="card-header alt">
           ${fmtDate(p.date)}${p.location ? ` • ${p.location}` : ""}${p.theme_title ? ` • ${p.theme_title}` : ""}
-          <span class="chev">›</span>
+          <span class="chev" aria-hidden="true">›</span>
         </summary>
         <div class="card-body">
           ${p.notes_coach ? `<p class="meta">Notes: ${p.notes_coach}</p>` : ""}
 
-          <details class="card" data-persist="${segKey}" ${isSegOpen ? 'open' : ''}>
-            <summary class="card-header">Practice Segments (${segs.length}) <span class="chev">›</span></summary>
+          <details class="card" data-persist="${segKey}" ${isSegOpen ? "open" : ""}>
+            <summary class="card-header">Practice Segments (${segs.length}) <span class="chev" aria-hidden="true">›</span></summary>
             <div class="card-body">
               ${segHtml || `<p class="meta">No segments.</p>`}
             </div>
@@ -232,10 +234,9 @@ export async function renderPractice() {
   return `<div class="list">${html || "<p>No practice plans yet.</p>"}</div>`;
 }
 
-// ---------- DRILLS ----------
 export async function renderDrills() {
   const drills = await ensureDrillsLib();
-  const tags = [...new Set((drills || []).flatMap(d => (d.tags || [])))];
+  const tags = [...new Set((drills || []).flatMap(d => d.tags || []))];
 
   return `
     <div class="row" style="gap:8px; align-items:center;">
@@ -289,9 +290,8 @@ async function renderDrillsList(rows) {
   return html.join("");
 }
 
-// ---------- MENTORSHIP ----------
 export async function renderMentorship() {
-  const items = await loadJSON('./data/mentorship.json');
+  const items = await loadJSON("./data/mentorship.json");
   return `<div class='list'>${(items || []).map(m => `
     <section class='card'>
       <div class="card-header alt">${m.theme_title || m.theme_id || ""}</div>
@@ -309,9 +309,8 @@ export async function renderMentorship() {
     </section>`).join("")}</div>`;
 }
 
-// ---------- ROSTER ----------
 export async function renderRoster() {
-  const roster = await loadJSON('./data/roster.json');
+  const roster = await loadJSON("./data/roster.json");
   if (!(roster || []).length) return "<p>No roster yet.</p>";
   const mail = v => (v && /@/.test(v) ? `<a href="mailto:${v}">${v}</a>` : (v || ""));
   const tel  = v => v ? `<a href="tel:${v.toString().replace(/[^\d+]/g,'')}">${v}</a>` : "";
@@ -351,59 +350,58 @@ export async function renderRoster() {
     </table>`;
 }
 
-// ---------- Global UI hooks ----------
+export async function renderAbout() {
+  const s = await loadSettings();
+  return `
+    <section class='card'>
+      <div class="card-header">About</div>
+      <div class="card-body">
+        <p>Team: ${s.team_name || ""}</p>
+        ${s.season ? `<p>Season: ${s.season}</p>` : ""}
+        ${s.coach_email ? `<p>Coach: <a href='mailto:${s.coach_email}'>${s.coach_email}</a></p>` : ""}
+        <p class='meta'>Edit <code>/data/settings.json</code> to update branding, theme, and links.</p>
+      </div>
+    </section>`;
+}
+
+/* ---------------- Global UI hooks (run once) ---------------- */
 (function bootUI() {
   const app = document.getElementById("app");
   if (!app) return;
 
-  // 1) QR generation for any [data-qr]
+  // 1) Persist <details> open/closed state
+  document.addEventListener("toggle", (ev) => {
+    const el = ev.target;
+    if (!(el instanceof HTMLDetailsElement)) return;
+    const key = el.getAttribute("data-persist");
+    if (!key) return;
+    setPersistedOpen(key, el.open);
+  }, true);
+
+  // 2) Auto-generate QR codes for [data-qr]
   const makeQRs = (root) => {
     if (!root) return;
+    // global QRCode (vendor/qrcode.min.js)
+    // eslint-disable-next-line no-undef
     if (typeof QRCode === "undefined") return;
     root.querySelectorAll("[data-qr]").forEach(node => {
       if (node.getAttribute("data-qr-initialized")) return;
       const url = node.getAttribute("data-qr"); if (!url) return;
       node.setAttribute("data-qr-initialized", "1");
-      try { new QRCode(node, { text: url, width: 120, height: 120 }); } catch {}
+      try { /* eslint-disable no-undef */ new QRCode(node, { text: url, width: 120, height: 120 }); /* eslint-enable */ }
+      catch {}
     });
-  };
-
-  // 2) Toggle persistence for details[data-persist]
-  document.addEventListener('toggle', (ev) => {
-    const el = ev.target;
-    if (!(el instanceof HTMLDetailsElement)) return;
-    const key = el.getAttribute('data-persist');
-    if (!key) return;
-    setPersistedOpen(key, el.open);
-  }, true);
-
-  // 3) Fill video placeholders in Practice view (if any remained)
-  const fillVideos = async (root) => {
-    const nodes = root.querySelectorAll("[data-video-id], [data-video-url]");
-    if (!nodes.length) return;
-    for (const n of nodes) {
-      const direct = n.getAttribute("data-video-url");
-      let url = direct || null;
-      if (url) {
-        n.outerHTML = `<p><strong>Video:</strong> <a href="${url}" target="_blank" rel="noopener">${url}</a></p>`;
-      } else {
-        n.remove();
-      }
-    }
   };
 
   const mo = new MutationObserver(muts => {
     for (const m of muts) {
-      m.addedNodes.forEach(n => {
-        if (n.nodeType === 1) { makeQRs(n); fillVideos(n); }
-      });
+      m.addedNodes.forEach(n => { if (n.nodeType === 1) makeQRs(n); });
     }
   });
   mo.observe(app, { childList: true, subtree: true });
+  setTimeout(() => makeQRs(app), 0);
 
-  setTimeout(() => { makeQRs(app); fillVideos(app); }, 0);
-
-  // Drills search, tag filter, and clear
+  // 3) Drill search / tag filter / clear
   document.addEventListener("click", async (ev) => {
     const tagBtn = ev.target.closest("[data-tag]");
     const clear = ev.target.closest('[data-action="clear-drill-search"]');
@@ -434,5 +432,4 @@ export async function renderRoster() {
     );
     list.innerHTML = await renderDrillsList(filtered);
   });
-
 })();
