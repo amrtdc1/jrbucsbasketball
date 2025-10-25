@@ -3,8 +3,6 @@
  *  - loadJSON, loadSettings
  *  - applyTheme, setTheme (alias), initThemeFromSettings, toggleTheme
  *  - renderHome, renderPractice, renderDrills, renderMentorship, renderRoster, renderAbout
- * Includes: collapsible Practice Plans (with persisted state), correct ordering (future first, then past),
- *           drills search + clear, mentorship QR codes.
  */
 
 /* ---------------- Fetch helpers ---------------- */
@@ -34,19 +32,14 @@ export function applyTheme(mode = "auto") {
   }
   try { localStorage.setItem("theme", mode); } catch {}
 }
+export const setTheme = applyTheme; // alias
 
-// Back-compat alias (safe to keep even if not used)
-export const setTheme = applyTheme;
-
-// Initialize theme from saved value or settings.json; returns resolved mode
 export function initThemeFromSettings(settings = {}) {
   const saved = localStorage.getItem("theme");
   const mode = saved || settings.theme || "auto";
   applyTheme(mode);
   return mode;
 }
-
-// Optional: toggle helper (returns the new mode)
 export function toggleTheme() {
   const current = localStorage.getItem("theme") || "auto";
   const next = current === "dark" ? "light" : "dark";
@@ -68,6 +61,28 @@ async function ensureDrillsLib() {
   return drillsLibCache;
 }
 
+/* ---------------- File existence helper (diagrams) ---------------- */
+const _existsCache = new Map();
+/** Checks if a file exists. Uses Cache Storage first (offline-friendly), then HEAD fetch. */
+async function fileExists(url) {
+  if (_existsCache.has(url)) return _existsCache.get(url);
+  try {
+    if ("caches" in window) {
+      const hit = await caches.match(url);
+      if (hit) { _existsCache.set(url, true); return true; }
+    }
+  } catch {}
+  try {
+    const res = await fetch(url, { method: "HEAD", cache: "no-store" });
+    const ok = res.ok;
+    _existsCache.set(url, ok);
+    return ok;
+  } catch {
+    _existsCache.set(url, false);
+    return false;
+  }
+}
+
 /* ---------------- Helpers: next practice & ordering ---------------- */
 function getNextPractice(plans, now = new Date()) {
   const today = new Date(now); today.setHours(0,0,0,0);
@@ -76,7 +91,6 @@ function getNextPractice(plans, now = new Date()) {
     .filter(p => new Date(p.date).setHours(0,0,0,0) >= today.getTime())
     .sort((a, b) => new Date(a.date) - new Date(b.date))[0] || null;
 }
-
 function orderPractices(plans, now = new Date()) {
   const d0 = new Date(now); d0.setHours(0,0,0,0);
   const valid = (plans || []).filter(p => Number.isFinite(new Date(p.date).getTime()));
@@ -147,11 +161,12 @@ export async function renderHome() {
   `;
 }
 
+/* ---------- Practice Plans (async to allow diagram existence checks) ---------- */
 export async function renderPractice() {
   const plansRaw = await loadJSON("./data/practice_plans.json");
   const plans = orderPractices(plansRaw);
 
-  const html = plans.map((p, idx) => {
+  const plansHtml = await Promise.all(plans.map(async (p, idx) => {
     const segs = (p.items || []).filter(i => i.type === "segment");
     const mentors = (p.items || []).filter(i => i.type === "mentorship");
 
@@ -161,42 +176,48 @@ export async function renderPractice() {
     const isTopOpen = getPersistedOpen(topKey, idx === 0); // nearest upcoming open by default
     const isSegOpen = getPersistedOpen(segKey, true);
 
-    // Build each segment's HTML (use local drillsHtml INSIDE the map)
-    const segmentsHtml = segs.map(seg => {
-      const drillsHtml = (seg.drills || [])
-        .sort((a,b) => (a.drill_order||0) - (b.drill_order||0))
-        .map(d => {
-          const tags = (d.drill_category || "").split(/[|,]/).map(s => s.trim()).filter(Boolean);
-          const prose = [
-            d.setup ? `<p><strong>Setup:</strong> ${d.setup}</p>` : "",
-            d.execution ? `<p><strong>Instructions:</strong> ${d.execution}</p>` : "",
-            d.coaching_points ? `<p><strong>Coaching Points:</strong> ${d.coaching_points}</p>` : "",
-            d.common_errors ? `<p><strong>Common Errors:</strong> ${d.common_errors}</p>` : "",
-            d.variations ? `<p><strong>Variations:</strong> ${d.variations}</p>` : "",
-          ].join("");
+    const segSections = await Promise.all(segs.map(async (seg) => {
+      const drillsHtml = (await Promise.all(
+        (seg.drills || [])
+          .sort((a,b) => (a.drill_order||0) - (b.drill_order||0))
+          .map(async (d) => {
+            const tags = (d.drill_category || "").split(/[|,]/).map(s => s.trim()).filter(Boolean);
+            const prose = [
+              d.setup ? `<p><strong>Setup:</strong> ${d.setup}</p>` : "",
+              d.execution ? `<p><strong>Instructions:</strong> ${d.execution}</p>` : "",
+              d.coaching_points ? `<p><strong>Coaching Points:</strong> ${d.coaching_points}</p>` : "",
+              d.common_errors ? `<p><strong>Common Errors:</strong> ${d.common_errors}</p>` : "",
+              d.variations ? `<p><strong>Variations:</strong> ${d.variations}</p>` : "",
+            ].join("");
 
-          const diagramBlock = d.diagram
-            ? (d.diagram_embed === false
-                ? `<p class="meta">Diagram: <a href="./diagrams/${d.diagram}" target="_blank" rel="noopener">${d.diagram}</a></p>`
-                : `<figure class="figure"><img src="./diagrams/${d.diagram}" alt="${d.drill_name || "Diagram"}" loading="lazy"></figure>`)
-            : "";
+            // --- diagram: only render if the file actually exists ---
+            let diagramBlock = "";
+            if (d.diagram) {
+              const url = `./diagrams/${d.diagram}`;
+              if (await fileExists(url)) {
+                diagramBlock = d.diagram_embed === false
+                  ? `<p class="meta">Diagram: <a href="${url}" target="_blank" rel="noopener">${d.diagram}</a></p>`
+                  : `<figure class="figure"><img src="${url}" alt="${d.drill_name || "Diagram"}" loading="lazy"></figure>`;
+              }
+            }
 
-          const videoLink = (d.video_url || "").trim()
-            ? `<p><strong>Video:</strong> <a href="${d.video_url}" target="_blank" rel="noopener">${d.video_url}</a></p>`
-            : "";
+            const videoLink = (d.video_url || "").trim()
+              ? `<p><strong>Video:</strong> <a href="${d.video_url}" target="_blank" rel="noopener">${d.video_url}</a></p>`
+              : "";
 
-          return `
-            <li class="card">
-              <div class="card-body">
-                ${d.drill_name ? `<div class="meta"><strong>${d.drill_name}</strong></div>` : ""}
-                ${tags.length ? `<div class="row">${tags.map(t => `<span class="badge">${t}</span>`).join("")}</div>` : ""}
-                ${prose}
-                ${diagramBlock}
-                ${videoLink}
-              </div>
-            </li>
-          `;
-        }).join("");
+            return `
+              <li class="card">
+                <div class="card-body">
+                  ${d.drill_name ? `<div class="meta"><strong>${d.drill_name}</strong></div>` : ""}
+                  ${tags.length ? `<div class="row">${tags.map(t => `<span class="badge">${t}</span>`).join("")}</div>` : ""}
+                  ${prose}
+                  ${diagramBlock}
+                  ${videoLink}
+                </div>
+              </li>
+            `;
+          })
+      )).join("");
 
       return `
         <section class="card">
@@ -208,7 +229,7 @@ export async function renderPractice() {
           </div>
         </section>
       `;
-    }).join("");
+    }));
 
     const mentorHtml = mentors.map(m => `
       <section class="card">
@@ -239,7 +260,7 @@ export async function renderPractice() {
           <details class="card" data-persist="${segKey}" ${isSegOpen ? "open" : ""}>
             <summary class="card-header">Practice Segments (${segs.length}) <span class="chev" aria-hidden="true">›</span></summary>
             <div class="card-body">
-              ${segmentsHtml || `<p class="meta">No segments.</p>`}
+              ${segSections.join("") || `<p class="meta">No segments.</p>`}
             </div>
           </details>
 
@@ -247,11 +268,12 @@ export async function renderPractice() {
         </div>
       </details>
     `;
-  }).join("");
+  }));
 
-  return `<div class="list">${html || "<p>No practice plans yet.</p>"}</div>`;
+  return `<div class="list">${plansHtml.join("") || "<p>No practice plans yet.</p>"}</div>`;
 }
 
+/* ---------- Drills (collapsible + diagram existence check) ---------- */
 export async function renderDrills() {
   const drills = await ensureDrillsLib();
   const tags = [...new Set((drills || []).flatMap(d => d.tags || []))];
@@ -270,11 +292,16 @@ export async function renderDrills() {
 
 async function renderDrillsList(rows) {
   const html = await Promise.all((rows || []).map(async d => {
-    const diagramBlock = d.diagram
-      ? (d.diagram_embed === false
-          ? `<p class='meta'>Diagram: <a href="./diagrams/${d.diagram}" target="_blank" rel="noopener">${d.diagram}</a></p>`
-          : `<figure class="figure"><img src="./diagrams/${d.diagram}" alt="${d.name || "Drill"} diagram" loading="lazy"></figure>`)
-      : "";
+    // Only show diagram if the file actually exists
+    let diagramBlock = "";
+    if (d.diagram) {
+      const url = `./diagrams/${d.diagram}`;
+      if (await fileExists(url)) {
+        diagramBlock = d.diagram_embed === false
+          ? `<p class='meta'>Diagram: <a href="${url}" target="_blank" rel="noopener">${d.diagram}</a></p>`
+          : `<figure class="figure"><img src="${url}" alt="${d.name || "Drill"} diagram" loading="lazy"></figure>`;
+      }
+    }
 
     const tagRow = d.tags?.length ? `<div class='row'>${d.tags.map(t => `<span class='badge'>${t}</span>`).join("")}</div>` : "";
 
@@ -288,8 +315,11 @@ async function renderDrillsList(rows) {
     const videoLink = d.video_url ? `<p><strong>Video:</strong> <a href="${d.video_url}" target="_blank" rel="noopener">${d.video_url}</a></p>` : "";
 
     return `
-      <section class='card'>
-        <div class="card-header">${d.name || ""}</div>
+      <details class='card'>
+        <summary class="card-header alt">
+          ${d.name || ""}
+          <span class="chev" aria-hidden="true">›</span>
+        </summary>
         <div class="card-body">
           ${tagRow}
           ${d.summary ? `<p class='meta'>${d.summary}</p>` : ""}
@@ -303,30 +333,36 @@ async function renderDrillsList(rows) {
           ${diagramBlock}
           ${videoLink}
         </div>
-      </section>`;
+      </details>`;
   }));
   return html.join("");
 }
 
+/* ---------- Mentorship (collapsible) ---------- */
 export async function renderMentorship() {
   const items = await loadJSON("./data/mentorship.json");
   return `<div class='list'>${(items || []).map(m => `
-    <section class='card'>
-      <div class="card-header alt">${m.theme_title || m.theme_id || ""}</div>
+    <details class='card'>
+      <summary class="card-header alt">
+        ${m.theme_title || m.theme_id || m.title || 'Mentorship'}
+        <span class="chev" aria-hidden="true">›</span>
+      </summary>
       <div class="card-body">
         ${m.story_title ? `<p><strong>${m.story_title}</strong></p>` : ""}
-        ${m.script ? `<p>${m.script}</p>` : ""}
+        ${m.script ? `<p>${m.script}</p>` : (m.story ? `<p>${m.story}</p>` : "")}
         ${m.questions ? `<p><em>Questions:</em> ${m.questions}</p>` : ""}
         ${
           m.video_url
-            ? `<div class='row'><a class='badge' href='${m.video_url}' target='_blank' rel='noopener'>Video</a></div>
-               <div class='qr' data-qr='${m.video_url}'></div>`
+            ? `<div class='row'><a class='badge' href='${m.video_url}' target='_blank' rel='noopener'>Watch</a></div>
+               <div class='qr' data-qr='${m.video_url}' aria-label='QR to mentorship video'></div>`
             : ""
         }
       </div>
-    </section>`).join("")}</div>`;
+    </details>
+  `).join("")}</div>`;
 }
 
+/* ---------- Roster ---------- */
 export async function renderRoster() {
   const roster = await loadJSON("./data/roster.json");
   if (!(roster || []).length) return "<p>No roster yet.</p>";
@@ -368,6 +404,7 @@ export async function renderRoster() {
     </table>`;
 }
 
+/* ---------- About ---------- */
 export async function renderAbout() {
   const s = await loadSettings();
   return `
