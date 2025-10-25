@@ -1,4 +1,4 @@
-/** ui.js — views + data helpers + theme utilities */
+/** ui.js — views + data helpers + theme + collapsible Practice Plans */
 
 // ---------- Small fetch helper ----------
 const cacheBust = () => `?v=${globalThis.crypto?.randomUUID?.() || Date.now()}`;
@@ -15,23 +15,8 @@ async function fetchJSON(url, fallback) {
 export async function loadJSON(path)    { return fetchJSON(path, []); }
 export async function loadSettings()    { return fetchJSON('./data/settings.json', { team_name: 'Team Hub', theme: 'auto' }); }
 
-// Picks the earliest practice at/after "now". If none exist, returns null.
-// Ignores rows with invalid/missing dates.
-function getNextPractice(plans, now = new Date()) {
-  const nowMs = now.getTime();
-  const valid = (plans || [])
-    .map(p => ({ p, t: new Date(p.date).getTime() }))
-    .filter(({ t }) => Number.isFinite(t));
-
-  const future = valid.filter(({ t }) => t >= nowMs)
-                      .sort((a, b) => a.t - b.t);
-  return future.length ? future[0].p : null;
-}
-
-
 // ---------- Theme helpers ----------
 export function applyTheme(mode = 'auto') {
-  // mode: 'light' | 'dark' | 'auto'
   if (mode === 'auto') {
     document.documentElement.removeAttribute('data-theme');
     document.documentElement.style.colorScheme = 'light dark';
@@ -57,7 +42,7 @@ export function toggleTheme() {
 // ---------- Formatting ----------
 const fmtDate = (iso) => {
   try {
-    return new Date(iso).toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric', time: 'short' });
+    return new Date(iso).toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric' });
   } catch { return iso; }
 };
 
@@ -68,21 +53,39 @@ async function ensureDrillsLib() {
   return drillsLibCache;
 }
 
+// ---------- Helpers: practice ordering + persistence ----------
+function orderPractices(plans, now = new Date()) {
+  const nowMs = now.setHours(0,0,0,0);
+  const valid = (plans || []).filter(p => Number.isFinite(new Date(p.date).getTime()));
+  const future = valid.filter(p => new Date(p.date).setHours(0,0,0,0) >= nowMs)
+                      .sort((a, b) => new Date(a.date) - new Date(b.date));
+  const past   = valid.filter(p => new Date(p.date).setHours(0,0,0,0) <  nowMs)
+                      .sort((a, b) => new Date(a.date) - new Date(b.date));
+  return [...future, ...past];
+}
+
+function getPersistedOpen(key, def = false) {
+  const v = localStorage.getItem(key);
+  if (v === null) return def;
+  return v === '1';
+}
+function setPersistedOpen(key, isOpen) {
+  try { localStorage.setItem(key, isOpen ? '1' : '0'); } catch {}
+}
+
 // ---------- HOME ----------
 export async function renderHome() {
   const [settings, ann, plans] = await Promise.all([
     loadSettings(),
-    // If you use the live CSV loader for announcements, keep that here instead:
-    // loadAnnouncementsFlex(),
     loadJSON('./data/announcements.json'),
     loadJSON('./data/practice_plans.json'),
   ]);
 
-  const next = getNextPractice(plans);
-
-  // Simple time label; uses the date string (builder sets local ISO) plus optional start/end in the plan
-  const startStr = next ? new Date(next.date).toLocaleTimeString(undefined, { hour: 'numeric', minute: '2-digit' }) : '';
-  const endStr   = (next && next.end_time) ? `– ${next.end_time.replace(/:00\b/, '')}` : ''; // if you saved end_time as "7:30:00 PM", this trims seconds
+  // Pick earliest upcoming (>= today)
+  const today = new Date(); today.setHours(0, 0, 0, 0);
+  const next = [...(plans || [])]
+    .filter(p => new Date(p.date).setHours(0,0,0,0) >= today.getTime())
+    .sort((a, b) => new Date(a.date) - new Date(b.date))[0];
 
   return `
     <section class="grid">
@@ -92,11 +95,11 @@ export async function renderHome() {
           ${
             next ? `
               <div class="meta">
-                ${fmtDate(next.date)} ${startStr ? `· ${startStr}${endStr}` : ""}
-                ${next.location ? ` · ${next.location}` : ""}
-                ${next.theme_title ? ` · ${next.theme_title}` : ""}
+                ${fmtDate(next.date)}
+                ${next.location ? ` • ${next.location}` : ""}
+                ${next.theme_title ? ` • ${next.theme_title}` : (next.theme || "")}
               </div>
-              ${next.notes_coach ? `<p>${next.notes_coach}</p>` : ""}
+              ${next.notes_coach ? `<p>${next.notes_coach}</p>` : (next.focus ? `<p>${next.focus}</p>` : "")}
               <a class="badge" href="#/practice">View all plans →</a>
             ` : `<p>No upcoming practices yet.</p>`
           }
@@ -121,98 +124,112 @@ export async function renderHome() {
     </section>`;
 }
 
-// ---------- PRACTICE PLANS ----------
+// ---------- PRACTICE PLANS (collapsible + sorted with nearest upcoming first) ----------
 export async function renderPractice() {
-  const plans = await loadJSON('./data/practice_plans.json');
+  const plansRaw = await loadJSON('./data/practice_plans.json');
+  const plans = orderPractices(plansRaw);
 
-  const list = (plans || [])
-    .sort((a, b) => new Date(b.date) - new Date(a.date))
-    .map(p => {
-      // Top-level practice header uses alt background
-      const segments = (p.items || []).filter(i => i.type === 'segment');
-      const mentorships = (p.items || []).filter(i => i.type === 'mentorship');
+  const html = plans.map((p, idx) => {
+    const segs = (p.items || []).filter(i => i.type === 'segment');
+    const mentors = (p.items || []).filter(i => i.type === 'mentorship');
 
-      const segHtml = segments.map(seg => {
-        const drills = seg.drills || [];
+    // Persisted open states
+    const topKey = `pp_open_${p.id || p.practice_id || idx}`;
+    const segKey = `pp_seg_open_${p.id || p.practice_id || idx}`;
+    const defaultTopOpen = (idx === 0); // open the very first (nearest upcoming) by default
+    const isTopOpen = getPersistedOpen(topKey, defaultTopOpen);
+    const isSegOpen = getPersistedOpen(segKey, true);
 
-        const drillsHtml = drills
-          .sort((a,b) => (a.drill_order||0) - (b.drill_order||0))
-          .map(d => {
-            const tags = (d.drill_category || "")
-              .split(/[|,]/).map(s => s.trim()).filter(Boolean);
+    // Segments list (each segment as a simple card; could also be nested <details> if desired)
+    const segHtml = segs.map(seg => {
+      const drills = seg.drills || [];
+      const drillsHtml = drills
+        .sort((a,b) => (a.drill_order||0) - (b.drill_order||0))
+        .map(d => {
+          const tags = (d.drill_category || "")
+            .split(/[|,]/).map(s => s.trim()).filter(Boolean);
+          const prose = [
+            d.setup ? `<p><strong>Setup:</strong> ${d.setup}</p>` : "",
+            d.execution ? `<p><strong>Instructions:</strong> ${d.execution}</p>` : "",
+            d.coaching_points ? `<p><strong>Coaching Points:</strong> ${d.coaching_points}</p>` : "",
+            d.common_errors ? `<p><strong>Common Errors:</strong> ${d.common_errors}</p>` : "",
+            d.variations ? `<p><strong>Variations:</strong> ${d.variations}</p>` : "",
+          ].join("");
 
-            const prose = [
-              d.setup ? `<p><strong>Setup:</strong> ${d.setup}</p>` : "",
-              d.execution ? `<p><strong>Instructions:</strong> ${d.execution}</p>` : "",
-              d.coaching_points ? `<p><strong>Coaching Points:</strong> ${d.coaching_points}</p>` : "",
-              d.common_errors ? `<p><strong>Common Errors:</strong> ${d.common_errors}</p>` : "",
-              d.variations ? `<p><strong>Variations:</strong> ${d.variations}</p>` : "",
-            ].join("");
+          const diagramBlock = d.diagram
+            ? (d.diagram_embed === false
+                ? `<p class="meta">Diagram: <a href="./diagrams/${d.diagram}" target="_blank" rel="noopener">${d.diagram}</a></p>`
+                : `<figure class="figure"><img src="./diagrams/${d.diagram}" alt="${d.drill_name || "Diagram"}" loading="lazy"></figure>`)
+            : "";
 
-            const diagramBlock = d.diagram
-              ? (d.diagram_embed === false
-                  ? `<p class="meta">Diagram: <a href="./diagrams/${d.diagram}" target="_blank" rel="noopener">${d.diagram}</a></p>`
-                  : `<figure class="figure"><img src="./diagrams/${d.diagram}" alt="${d.drill_name || "Diagram"}" loading="lazy" onerror="(this.parentElement && this.parentElement.tagName==='FIGURE')?this.parentElement.remove():this.remove()"></figure>`)
-              : "";
+          const videoLink = (d.video_url || "").trim()
+            ? `<p><strong>Video:</strong> <a href="${d.video_url}" target="_blank" rel="noopener">${d.video_url}</a></p>`
+            : "";
 
-            const videoPlaceholder = `<span class="meta" data-video-id="${d.video_id || ""}" data-video-url="${d.video_url || ""}"></span>`;
-
-            return `
-              <li class="card">
-                <div class="card-body">
-                  ${d.drill_name ? `<div class="meta"><strong>${d.drill_name}</strong></div>` : ""}
-                  ${tags.length ? `<div class="row">${tags.map(t => `<span class="badge">${t}</span>`).join("")}</div>` : ""}
-                  ${prose}
-                  ${diagramBlock}
-                  ${videoPlaceholder}
-                </div>
-              </li>`;
-          }).join("");
-
-        return `
-          <section class="card">
-            <div class="card-header">${seg.segment_name || "Segment"} ${seg.duration_min ? `<span class="meta">• ${seg.duration_min} min</span>` : ""}</div>
-            <div class="card-body">
-              ${seg.objective ? `<p><strong>Objective:</strong> ${seg.objective}</p>` : ""}
-              ${seg.cues_headline ? `<p><strong>Cues:</strong> ${seg.cues_headline}</p>` : ""}
-              ${drillsHtml ? `<ol class="list">${drillsHtml}</ol>` : `<p class="meta">No drills listed.</p>`}
-            </div>
-          </section>`;
-      }).join("");
-
-      const mentorHtml = mentorships.map(m => `
-        <section class="card">
-          <div class="card-header alt">Mentorship — ${m.theme_title || m.theme_id || ""}</div>
-          <div class="card-body">
-            ${m.story_title ? `<p><strong>${m.story_title}</strong></p>` : ""}
-            ${m.script ? `<p>${m.script}</p>` : ""}
-            ${m.questions ? `<p><em>Questions:</em> ${m.questions}</p>` : ""}
-            ${
-              m.video_url
-                ? `<div class="row"><a class="badge" href="${m.video_url}" target="_blank" rel="noopener">Video</a></div>
-                   <div class="qr" data-qr="${m.video_url}" aria-label="QR to mentorship video"></div>`
-                : ""
-            }
-          </div>
-        </section>
-      `).join("");
+          return `
+            <li class="card">
+              <div class="card-body">
+                ${d.drill_name ? `<div class="meta"><strong>${d.drill_name}</strong></div>` : ""}
+                ${tags.length ? `<div class="row">${tags.map(t => `<span class="badge">${t}</span>`).join("")}</div>` : ""}
+                ${prose}
+                ${diagramBlock}
+                ${videoLink}
+              </div>
+            </li>`;
+        }).join("");
 
       return `
         <section class="card">
-          <div class="card-header alt">
-            ${fmtDate(p.date)}
-            ${p.location ? ` • ${p.location}` : ""}
-            ${p.theme_title ? ` • ${p.theme_title}` : ""}
-          </div>
+          <div class="card-header">${seg.segment_name || "Segment"} ${seg.duration_min ? `<span class="meta">• ${seg.duration_min} min</span>` : ""}</div>
           <div class="card-body">
-            ${p.notes_coach ? `<p class="meta">Notes: ${p.notes_coach}</p>` : ""}
-            ${segHtml}
-            ${mentorHtml}
+            ${seg.objective ? `<p><strong>Objective:</strong> ${seg.objective}</p>` : ""}
+            ${seg.cues_headline ? `<p><strong>Cues:</strong> ${seg.cues_headline}</p>` : ""}
+            ${drillsHtml ? `<ol class="list">${drillsHtml}</ol>` : `<p class="meta">No drills listed.</p>`}
           </div>
         </section>`;
     }).join("");
 
-  return `<div class="list">${list || "<p>No practice plans yet.</p>"}</div>`;
+    const mentorHtml = mentors.map(m => `
+      <section class="card">
+        <div class="card-header alt">Mentorship — ${m.theme_title || m.theme_id || ""}</div>
+        <div class="card-body">
+          ${m.story_title ? `<p><strong>${m.story_title}</strong></p>` : ""}
+          ${m.script ? `<p>${m.script}</p>` : ""}
+          ${m.questions ? `<p><em>Questions:</em> ${m.questions}</p>` : ""}
+          ${
+            m.video_url
+              ? `<div class="row"><a class="badge" href="${m.video_url}" target="_blank" rel="noopener">Video</a></div>
+                 <div class="qr" data-qr="${m.video_url}" aria-label="QR to mentorship video"></div>`
+              : ""
+          }
+        </div>
+      </section>
+    `).join("");
+
+    // High-level practice collapsible (card-as-details)
+    return `
+      <details class="card" data-persist="${topKey}" ${isTopOpen ? 'open' : ''}>
+        <summary class="card-header alt">
+          ${fmtDate(p.date)}${p.location ? ` • ${p.location}` : ""}${p.theme_title ? ` • ${p.theme_title}` : ""}
+          <span class="chev">›</span>
+        </summary>
+        <div class="card-body">
+          ${p.notes_coach ? `<p class="meta">Notes: ${p.notes_coach}</p>` : ""}
+
+          <details class="card" data-persist="${segKey}" ${isSegOpen ? 'open' : ''}>
+            <summary class="card-header">Practice Segments (${segs.length}) <span class="chev">›</span></summary>
+            <div class="card-body">
+              ${segHtml || `<p class="meta">No segments.</p>`}
+            </div>
+          </details>
+
+          ${mentorHtml}
+        </div>
+      </details>
+    `;
+  }).join("");
+
+  return `<div class="list">${html || "<p>No practice plans yet.</p>"}</div>`;
 }
 
 // ---------- DRILLS ----------
@@ -237,7 +254,7 @@ async function renderDrillsList(rows) {
     const diagramBlock = d.diagram
       ? (d.diagram_embed === false
           ? `<p class='meta'>Diagram: <a href="./diagrams/${d.diagram}" target="_blank" rel="noopener">${d.diagram}</a></p>`
-          : `<figure class="figure"><img src="./diagrams/${d.diagram}" alt="${d.name || "Drill"} diagram" loading="lazy" onerror="(this.parentElement && this.parentElement.tagName==='FIGURE')?this.parentElement.remove():this.remove()"></figure>`)
+          : `<figure class="figure"><img src="./diagrams/${d.diagram}" alt="${d.name || "Drill"} diagram" loading="lazy"></figure>`)
       : "";
 
     const tagRow = d.tags?.length ? `<div class='row'>${d.tags.map(t => `<span class='badge'>${t}</span>`).join("")}</div>` : "";
@@ -334,19 +351,6 @@ export async function renderRoster() {
     </table>`;
 }
 
-// ---------- ABOUT ----------
-export async function renderAbout() {
-  return `
-    <section class="card">
-      <div class="card-header alt">About Jr Bucs Basketball</div>
-      <div class="card-body">
-        <p>This app helps coaches and players organize practice plans, drills, and team information.</p>
-        <p>Version 1.0</p>
-      </div>
-    </section>`;
-}
-
-
 // ---------- Global UI hooks ----------
 (function bootUI() {
   const app = document.getElementById("app");
@@ -364,7 +368,16 @@ export async function renderAbout() {
     });
   };
 
-  // 2) Fill video placeholders in Practice view
+  // 2) Toggle persistence for details[data-persist]
+  document.addEventListener('toggle', (ev) => {
+    const el = ev.target;
+    if (!(el instanceof HTMLDetailsElement)) return;
+    const key = el.getAttribute('data-persist');
+    if (!key) return;
+    setPersistedOpen(key, el.open);
+  }, true);
+
+  // 3) Fill video placeholders in Practice view (if any remained)
   const fillVideos = async (root) => {
     const nodes = root.querySelectorAll("[data-video-id], [data-video-url]");
     if (!nodes.length) return;
@@ -422,5 +435,4 @@ export async function renderAbout() {
     list.innerHTML = await renderDrillsList(filtered);
   });
 
-  // (Roster sorting retained from earlier version if you added it)
 })();
