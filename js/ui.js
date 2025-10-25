@@ -15,6 +15,20 @@ async function fetchJSON(url, fallback) {
 export async function loadJSON(path)    { return fetchJSON(path, []); }
 export async function loadSettings()    { return fetchJSON('./data/settings.json', { team_name: 'Team Hub', theme: 'auto' }); }
 
+// Picks the earliest practice at/after "now". If none exist, returns null.
+// Ignores rows with invalid/missing dates.
+function getNextPractice(plans, now = new Date()) {
+  const nowMs = now.getTime();
+  const valid = (plans || [])
+    .map(p => ({ p, t: new Date(p.date).getTime() }))
+    .filter(({ t }) => Number.isFinite(t));
+
+  const future = valid.filter(({ t }) => t >= nowMs)
+                      .sort((a, b) => a.t - b.t);
+  return future.length ? future[0].p : null;
+}
+
+
 // ---------- Theme helpers ----------
 export function applyTheme(mode = 'auto') {
   // mode: 'light' | 'dark' | 'auto'
@@ -58,15 +72,17 @@ async function ensureDrillsLib() {
 export async function renderHome() {
   const [settings, ann, plans] = await Promise.all([
     loadSettings(),
+    // If you use the live CSV loader for announcements, keep that here instead:
+    // loadAnnouncementsFlex(),
     loadJSON('./data/announcements.json'),
     loadJSON('./data/practice_plans.json'),
   ]);
 
-  // Auto-pick next practice (>= today)
-  const today = new Date(); today.setHours(0, 0, 0, 0);
-  const next = [...(plans || [])]
-    .filter(p => new Date(p.date).setHours(0,0,0,0) >= today.getTime())
-    .sort((a, b) => new Date(a.date) - new Date(b.date))[0];
+  const next = getNextPractice(plans);
+
+  // Simple time label; uses the date string (builder sets local ISO) plus optional start/end in the plan
+  const startStr = next ? new Date(next.date).toLocaleTimeString(undefined, { hour: 'numeric', minute: '2-digit' }) : '';
+  const endStr   = (next && next.end_time) ? `– ${next.end_time.replace(/:00\b/, '')}` : ''; // if you saved end_time as "7:30:00 PM", this trims seconds
 
   return `
     <section class="grid">
@@ -76,11 +92,11 @@ export async function renderHome() {
           ${
             next ? `
               <div class="meta">
-                ${fmtDate(next.date)}
-                ${next.location ? ` • ${next.location}` : ""}
-                ${next.theme_title ? ` • ${next.theme_title}` : (next.theme || "")}
+                ${fmtDate(next.date)} ${startStr ? `· ${startStr}${endStr}` : ""}
+                ${next.location ? ` · ${next.location}` : ""}
+                ${next.theme_title ? ` · ${next.theme_title}` : ""}
               </div>
-              ${next.notes_coach ? `<p>${next.notes_coach}</p>` : (next.focus ? `<p>${next.focus}</p>` : "")}
+              ${next.notes_coach ? `<p>${next.notes_coach}</p>` : ""}
               <a class="badge" href="#/practice">View all plans →</a>
             ` : `<p>No upcoming practices yet.</p>`
           }
@@ -98,7 +114,8 @@ export async function renderHome() {
                 <p>${a.body || ""}</p>
               </li>
             `).join("")}
-          </ul>          
+          </ul>
+          <p class="meta">Edit announcements in <code>/data/announcements.json</code></p>
         </div>
       </div>
     </section>`;
@@ -135,7 +152,7 @@ export async function renderPractice() {
             const diagramBlock = d.diagram
               ? (d.diagram_embed === false
                   ? `<p class="meta">Diagram: <a href="./diagrams/${d.diagram}" target="_blank" rel="noopener">${d.diagram}</a></p>`
-                  : `<figure class="figure"><img src="./diagrams/${d.diagram}" alt="${d.drill_name || "Diagram"}" loading="lazy"></figure>`)
+                  : `<figure class="figure"><img src="./diagrams/${d.diagram}" alt="${d.drill_name || "Diagram"}" loading="lazy" onerror="(this.parentElement && this.parentElement.tagName==='FIGURE')?this.parentElement.remove():this.remove()"></figure>`)
               : "";
 
             const videoPlaceholder = `<span class="meta" data-video-id="${d.video_id || ""}" data-video-url="${d.video_url || ""}"></span>`;
@@ -220,7 +237,7 @@ async function renderDrillsList(rows) {
     const diagramBlock = d.diagram
       ? (d.diagram_embed === false
           ? `<p class='meta'>Diagram: <a href="./diagrams/${d.diagram}" target="_blank" rel="noopener">${d.diagram}</a></p>`
-          : `<figure class="figure"><img src="./diagrams/${d.diagram}" alt="${d.name || "Drill"} diagram" loading="lazy"></figure>`)
+          : `<figure class="figure"><img src="./diagrams/${d.diagram}" alt="${d.name || "Drill"} diagram" loading="lazy" onerror="(this.parentElement && this.parentElement.tagName==='FIGURE')?this.parentElement.remove():this.remove()"></figure>`)
       : "";
 
     const tagRow = d.tags?.length ? `<div class='row'>${d.tags.map(t => `<span class='badge'>${t}</span>`).join("")}</div>` : "";
@@ -407,5 +424,3 @@ export async function renderAbout() {
 
   // (Roster sorting retained from earlier version if you added it)
 })();
-
-
