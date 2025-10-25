@@ -1,6 +1,7 @@
 [
   {
     "theme_id": "M01",
+    "practice_id": "P01",
     "theme_title": "Effort",
     "story_title": "Giannis: Habits Over Hype",
     "script": "When Giannis was a kid in Greece, he worked even when no one watched. Effort is a habit—every rep is a deposit you’ll withdraw on game day.",
@@ -10,6 +11,7 @@
   },
   {
     "theme_id": "M02",
+    "practice_id": "P02",
     "theme_title": "Teamwork",
     "story_title": "Warriors: Assist Culture",
     "script": "The Warriors built a dynasty sharing the ball. Assists create trust. Our points belong to all five.",
@@ -19,6 +21,7 @@
   },
   {
     "theme_id": "M03",
+    "practice_id": "P03",
     "theme_title": "Discipline",
     "story_title": "Kobe’s 4 A.M. Rule",
     "script": "Discipline beats motivation: Kobe trained before sunrise so the work was already won by 9 a.m.",
@@ -28,6 +31,7 @@
   },
   {
     "theme_id": "M04",
+    "practice_id": "P04",
     "theme_title": "Communication",
     "story_title": "Talk = Trust",
     "script": "Defense works when we talk early and loud. Communication connects five players into one.",
@@ -37,6 +41,7 @@
   },
   {
     "theme_id": "M05",
+    "practice_id": "P05",
     "theme_title": "Poise Under Pressure",
     "story_title": "Pressure Reveals Character",
     "script": "When chaos hits, our habits keep us calm. Breathe, pivot, find the pass.",
@@ -46,6 +51,7 @@
   },
   {
     "theme_id": "M06",
+    "practice_id": "P06",
     "theme_title": "Selflessness",
     "story_title": "Tim Duncan: Superstar Teammate",
     "script": "Duncan’s greatness was quiet—screens, extra passes, help rotations. Be like Tim.",
@@ -55,6 +61,7 @@
   },
   {
     "theme_id": "M07",
+    "practice_id": "P07",
     "theme_title": "Finish Strong",
     "story_title": "Who Are You When the Clock Runs Out?",
     "script": "It’s not the score; it’s your effort, respect, and gratitude. Finish every rep strong.",
@@ -64,6 +71,7 @@
   },
   {
     "theme_id": "M08",
+    "practice_id": "P08",
     "theme_title": "Next-Play Mindset",
     "story_title": "Respond, Don’t React",
     "script": "Mistakes happen. Winners respond with the next right action.",
@@ -73,6 +81,7 @@
   },
   {
     "theme_id": "M09",
+    "practice_id": "P09",
     "theme_title": "Controlled Chaos",
     "story_title": "Press With Purpose",
     "script": "Pressure is organized teamwork, not gambling. Trust rotations.",
@@ -82,6 +91,7 @@
   },
   {
     "theme_id": "M10",
+    "practice_id": "P10",
     "theme_title": "Precision",
     "story_title": "Spurs: Little Things, Big Wins",
     "script": "The extra pass and sharp cuts add up. Details decide outcomes.",
@@ -91,6 +101,7 @@
   },
   {
     "theme_id": "M11",
+    "practice_id": "P11",
     "theme_title": "Mental Toughness",
     "story_title": "MJ’s ‘Flu Game’",
     "script": "Energy is a choice. Toughness is doing your job, even when you’re tired.",
@@ -100,6 +111,7 @@
   },
   {
     "theme_id": "M12",
+    "practice_id": "P12",
     "theme_title": "Preparation",
     "story_title": "Sharpen the Axe",
     "script": "Lincoln said: give me 6 hours to chop a tree and I’ll spend 4 sharpening the axe. Practice is sharpening.",
@@ -109,6 +121,7 @@
   },
   {
     "theme_id": "M13",
+    "practice_id": "P13",
     "theme_title": "Poise",
     "story_title": "Don’t Panic vs Traps",
     "script": "Pivot, pass fake, middle flash—calm feet, calm eyes.",
@@ -118,6 +131,7 @@
   },
   {
     "theme_id": "M14",
+    "practice_id": "P14",
     "theme_title": "Shot Selection",
     "story_title": "Good to Great",
     "script": "Turn down an okay shot for a great one. That’s team maturity.",
@@ -127,6 +141,7 @@
   },
   {
     "theme_id": "M15",
+    "practice_id": "P15",
     "theme_title": "Rebounding Pride",
     "story_title": "Own the Glass",
     "script": "Rebounds are effort stats. One board can win a game.",
@@ -136,6 +151,7 @@
   },
   {
     "theme_id": "M16",
+    "practice_id": "P16",
     "theme_title": "IQ & Situations",
     "story_title": "Think the Game",
     "script": "Time, score, fouls, possession arrow—be the smartest team on the floor.",
@@ -145,6 +161,7 @@
   },
   {
     "theme_id": "M17",
+    "practice_id": "P17",
     "theme_title": "Gratitude",
     "story_title": "Joy in the Work",
     "script": "Gratitude fuels joy; joyful teams practice harder and play freer.",
@@ -154,6 +171,7 @@
   },
   {
     "theme_id": "M18",
+    "practice_id": "P18",
     "theme_title": "Character",
     "story_title": "Compete with Class",
     "script": "We win the right way—respect opponents, officials, and the game.",
@@ -163,6 +181,7 @@
   },
   {
     "theme_id": "M19",
+    "practice_id": "P19",
     "theme_title": "Adaptability",
     "story_title": "Adjust Faster",
     "script": "Basketball is problem-solving at speed. Adjust faster than they do.",
@@ -172,6 +191,7 @@
   },
   {
     "theme_id": "M20",
+    "practice_id": "P20",
     "theme_title": "Embrace Pressure",
     "story_title": "Pressure = Privilege",
     "script": "Big moments mean we earned the stage. Breathe and execute.",
@@ -181,6 +201,7 @@
   },
   {
     "theme_id": "M21",
+    "practice_id": "P21",
     "theme_title": "Humility",
     "story_title": "Finish Strong, Stay Humble",
     "script": "We’re grateful for growth, win or lose. Humility keeps us hungry.",
