@@ -161,22 +161,24 @@ export async function renderHome() {
   `;
 }
 
-/* ---------- Practice Plans (async to allow diagram existence checks) ---------- */
+/* ---------- Practice Plans (segments now individually collapsible) ---------- */
 export async function renderPractice() {
   const plansRaw = await loadJSON("./data/practice_plans.json");
   const plans = orderPractices(plansRaw);
 
-  const plansHtml = await Promise.all(plans.map(async (p, idx) => {
+  const plansHtml = await Promise.all(plans.map(async (p, pIdx) => {
     const segs = (p.items || []).filter(i => i.type === "segment");
     const mentors = (p.items || []).filter(i => i.type === "mentorship");
 
-    const keyBase = p.id || p.practice_id || `p${idx}`;
-    const topKey = `pp_open_${keyBase}`;
-    const segKey = `pp_seg_open_${keyBase}`;
-    const isTopOpen = getPersistedOpen(topKey, idx === 0); // nearest upcoming open by default
-    const isSegOpen = getPersistedOpen(segKey, true);
+    const baseKey = p.id || p.practice_id || `p${pIdx}`;
+    const planKey = `pp_open_${baseKey}`;
+    const isPlanOpen = getPersistedOpen(planKey, pIdx === 0); // nearest upcoming open
 
-    const segSections = await Promise.all(segs.map(async (seg) => {
+    // Build each segment as its own <details class="card">
+    const segBlocks = await Promise.all(segs.map(async (seg, sIdx) => {
+      const segKey = `pp_seg_${baseKey}_${seg.segment_order ?? sIdx}`;
+      const isSegOpen = getPersistedOpen(segKey, true);
+
       const drillsHtml = (await Promise.all(
         (seg.drills || [])
           .sort((a,b) => (a.drill_order||0) - (b.drill_order||0))
@@ -190,7 +192,7 @@ export async function renderPractice() {
               d.variations ? `<p><strong>Variations:</strong> ${d.variations}</p>` : "",
             ].join("");
 
-            // --- diagram: only render if the file actually exists ---
+            // Show diagram only if file exists
             let diagramBlock = "";
             if (d.diagram) {
               const url = `./diagrams/${d.diagram}`;
@@ -219,15 +221,20 @@ export async function renderPractice() {
           })
       )).join("");
 
+      const segTitle = `${seg.segment_name || "Segment"}${seg.duration_min ? ` - ${seg.duration_min} min` : ""}`;
+
       return `
-        <section class="card">
-          <div class="card-header">${seg.segment_name || "Segment"}${seg.duration_min ? ` <span class="meta">• ${seg.duration_min} min</span>` : ""}</div>
+        <details class="card" data-persist="${segKey}" ${isSegOpen ? "open" : ""}>
+          <summary class="card-header">
+            ${segTitle}
+            <span class="chev" aria-hidden="true">›</span>
+          </summary>
           <div class="card-body">
             ${seg.objective ? `<p><strong>Objective:</strong> ${seg.objective}</p>` : ""}
             ${seg.cues_headline ? `<p><strong>Cues:</strong> ${seg.cues_headline}</p>` : ""}
             ${drillsHtml ? `<ol class="list">${drillsHtml}</ol>` : `<p class="meta">No drills listed.</p>`}
           </div>
-        </section>
+        </details>
       `;
     }));
 
@@ -249,21 +256,16 @@ export async function renderPractice() {
     `).join("");
 
     return `
-      <details class="card" data-persist="${topKey}" ${isTopOpen ? "open" : ""}>
+      <details class="card" data-persist="${planKey}" ${isPlanOpen ? "open" : ""}>
         <summary class="card-header alt">
           ${fmtDate(p.date)}${p.location ? ` • ${p.location}` : ""}${p.theme_title ? ` • ${p.theme_title}` : ""}
           <span class="chev" aria-hidden="true">›</span>
         </summary>
         <div class="card-body">
           ${p.notes_coach ? `<p class="meta">Notes: ${p.notes_coach}</p>` : ""}
-
-          <details class="card" data-persist="${segKey}" ${isSegOpen ? "open" : ""}>
-            <summary class="card-header">Practice Segments (${segs.length}) <span class="chev" aria-hidden="true">›</span></summary>
-            <div class="card-body">
-              ${segSections.join("") || `<p class="meta">No segments.</p>`}
-            </div>
-          </details>
-
+          <div class="list">
+            ${segBlocks.join("") || `<p class="meta">No segments.</p>`}
+          </div>
           ${mentorHtml}
         </div>
       </details>
@@ -424,7 +426,7 @@ export async function renderAbout() {
   const app = document.getElementById("app");
   if (!app) return;
 
-  // 1) Persist <details> open/closed state
+  // Persist <details> open/closed state (including per-segment)
   document.addEventListener("toggle", (ev) => {
     const el = ev.target;
     if (!(el instanceof HTMLDetailsElement)) return;
@@ -433,10 +435,9 @@ export async function renderAbout() {
     setPersistedOpen(key, el.open);
   }, true);
 
-  // 2) Auto-generate QR codes for [data-qr]
+  // Auto-generate QR codes for [data-qr]
   const makeQRs = (root) => {
     if (!root) return;
-    // global QRCode (vendor/qrcode.min.js)
     // eslint-disable-next-line no-undef
     if (typeof QRCode === "undefined") return;
     root.querySelectorAll("[data-qr]").forEach(node => {
@@ -456,7 +457,7 @@ export async function renderAbout() {
   mo.observe(app, { childList: true, subtree: true });
   setTimeout(() => makeQRs(app), 0);
 
-  // 3) Drill search / tag filter / clear
+  // Drill search / tag filter / clear
   document.addEventListener("click", async (ev) => {
     const tagBtn = ev.target.closest("[data-tag]");
     const clear = ev.target.closest('[data-action="clear-drill-search"]');
