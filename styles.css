@@ -15,6 +15,11 @@
   /* Component tweaks */
   --radius: 14px;
   --pad: 12px;
+  --header-offset: 64px;
+}
+
+:target {
+  scroll-margin-top: var(--header-offset);
 }
 
 /* Prefer dark = system dark tokens */
@@ -43,6 +48,7 @@ html[data-theme="light"] {
   --header-alt-fg: #ffffff;
   color-scheme: light;
 }
+
 html[data-theme="dark"] {
   --bg: #2D2C25;
   --fg: #f5f5f5;
@@ -55,7 +61,10 @@ html[data-theme="dark"] {
 }
 
 /* ========== Base ========== */
-* { box-sizing: border-box; }
+* {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
   font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Helvetica, Arial, sans-serif;
@@ -76,6 +85,7 @@ body {
   background: var(--bg);
   z-index: 10;
 }
+
 /* Center the title within the header */
 .app-header #appTitle {
   position: absolute;
@@ -83,17 +93,25 @@ body {
   transform: translateX(-50%);
   margin: 0;
   text-align: center;
-  max-width: 70vw;                 /* prevent overlap on small screens */
+  max-width: 70vw;
+  /* prevent overlap on small screens */
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  pointer-events: none;            /* keeps right-side buttons clickable if overlapping */
+  pointer-events: none;
+  /* keeps right-side buttons clickable if overlapping */
 }
-.app-header .row { display:flex; gap:8px; align-items:center; }
+
+.app-header .row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
 
 
 /* Buttons */
-.btn, .ghost {
+.btn,
+.ghost {
   border-radius: 999px;
   padding: 6px 10px;
   cursor: pointer;
@@ -101,7 +119,10 @@ body {
   background: transparent;
   color: var(--fg);
 }
-.btn[aria-pressed="true"] { outline: 2px solid var(--fg); }
+
+.btn[aria-pressed="true"] {
+  outline: 2px solid var(--fg);
+}
 
 /* Theme toggle pill */
 .theme-toggle {
@@ -120,6 +141,7 @@ body {
   padding: 8px 12px;
   border-bottom: 1px solid var(--card-border);
 }
+
 .tabs a {
   padding: 8px 10px;
   border-radius: 8px;
@@ -128,15 +150,43 @@ body {
   border: 1px solid transparent;
   white-space: nowrap;
 }
-.tabs a.active { border-color: var(--fg); }
+
+.tabs a.active {
+  border-color: var(--fg);
+}
 
 /* ========== Layout ========== */
-main#app { padding: 12px; max-width: 1000px; margin: 0 auto; }
-.list { display: grid; gap: 8px; }
-.grid { display: grid; gap: 12px; }
-.grid.cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-.row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-.meta { font-size: 0.9rem; color: var(--muted); }
+main#app {
+  padding: 12px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.list {
+  display: grid;
+  gap: 8px;
+}
+
+.grid {
+  display: grid;
+  gap: 12px;
+}
+
+.grid.cols-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.meta {
+  font-size: 0.9rem;
+  color: var(--muted);
+}
 
 /* ========== Cards ========== */
 .card {
@@ -155,6 +205,7 @@ main#app { padding: 12px; max-width: 1000px; margin: 0 auto; }
   color: var(--fg);
   font-weight: 600;
 }
+
 .card-header.alt {
   background: var(--header-alt-bg);
   color: var(--header-alt-fg);
@@ -163,7 +214,10 @@ main#app { padding: 12px; max-width: 1000px; margin: 0 auto; }
 /* Optional body wrapper if you want distinct spacing */
 .card-body {
   padding: var(--pad);
-  > * + * { margin-top: 12px; }
+
+  >*+* {
+    margin-top: 12px;
+  }
 }
 
 /* ========== Inputs, badges, table, QR ========== */
@@ -175,6 +229,7 @@ main#app { padding: 12px; max-width: 1000px; margin: 0 auto; }
   background: transparent;
   color: inherit;
 }
+
 .badge {
   border: 1px solid var(--fg);
   padding: 2px 6px;
@@ -183,9 +238,26 @@ main#app { padding: 12px; max-width: 1000px; margin: 0 auto; }
   color: inherit;
   text-decoration: none;
 }
-.table { width: 100%; border-collapse: collapse; }
-.table th, .table td { border: 1px solid var(--card-border); padding: 8px; text-align: left; }
-.qr { display: grid; place-items: center; padding: 8px; border: 1px dashed var(--card-border); border-radius: 12px; }
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th,
+.table td {
+  border: 1px solid var(--card-border);
+  padding: 8px;
+  text-align: left;
+}
+
+.qr {
+  display: grid;
+  place-items: center;
+  padding: 8px;
+  border: 1px dashed var(--card-border);
+  border-radius: 12px;
+}
 
 /* Snackbar */
 #snackbar {
@@ -200,4 +272,6 @@ main#app { padding: 12px; max-width: 1000px; margin: 0 auto; }
 }
 
 /* Utilities */
-.hidden { display: none; }
+.hidden {
+  display: none;
+}
