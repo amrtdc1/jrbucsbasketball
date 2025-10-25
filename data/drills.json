@@ -1,5 +1,245 @@
 [
   {
+    "id": "1",
+    "name": "Stationary Two-Ball Series",
+    "tags": [
+      "Ball-Handling & Warm Up Drills"
+    ],
+    "summary": "",
+    "setup": "Each player with 2 balls on baseline.",
+    "execution": "20 s each: low, high, cross, between, behind.",
+    "coaching_points": "Stay low; eyes up; fingertips, not palms.",
+    "common_errors": "",
+    "variations": "Add forward/back movement; time challenge.",
+    "diagram": "diagram-2ball.png",
+    "video_id": "",
+    "video_url": "",
+    "player_cues": "",
+    "reps": "",
+    "sets": "",
+    "equipment": ""
+  },
+  {
+    "id": "6",
+    "name": "Dynamic Warm-Up Circuit",
+    "tags": [
+      "Ball-Handling & Warm Up Drills"
+    ],
+    "summary": "",
+    "setup": "Players on baseline.",
+    "execution": "Jog, high-knees, butt-kicks, slides, backpedal to half ×2.",
+    "coaching_points": "Quality movement; posture; athletic arms.",
+    "common_errors": "",
+    "variations": "Add ball-handling to slides.",
+    "diagram": "diagram-dynamicwarmup.png",
+    "video_id": "",
+    "video_url": "",
+    "player_cues": "",
+    "reps": "",
+    "sets": "",
+    "equipment": ""
+  },
+  {
+    "id": "11",
+    "name": "Mikan Series (Both Hands)",
+    "tags": [
+      "Shooting & Finishing"
+    ],
+    "summary": "",
+    "setup": "One player under rim with ball.",
+    "execution": "Alternate R/L off glass without dribble.",
+    "coaching_points": "Eyes on square; inside foot; soft touch.",
+    "common_errors": "",
+    "variations": "Reverse Mikan next set.",
+    "diagram": "diagram-mikanseries.png",
+    "video_id": "",
+    "video_url": "",
+    "player_cues": "",
+    "reps": "",
+    "sets": "",
+    "equipment": ""
+  },
+  {
+    "id": "12",
+    "name": "Reverse Mikan",
+    "tags": [
+      "Shooting & Finishing"
+    ],
+    "summary": "",
+    "setup": "Under rim facing away.",
+    "execution": "Continuous reverse layups alternating sides.",
+    "coaching_points": "Use board; protect ball; balanced steps.",
+    "common_errors": "",
+    "variations": "Add light pad contact.",
+    "diagram": "diagram-reversemikan.png",
+    "video_id": "",
+    "video_url": "",
+    "player_cues": "",
+    "reps": "",
+    "sets": "",
+    "equipment": ""
+  },
+  {
+    "id": "14",
+    "name": "Form Shooting (BEEF)",
+    "tags": [
+      "Shooting & Finishing"
+    ],
+    "summary": "",
+    "setup": "Players 3–6 ft around key.",
+    "execution": "High reps focusing on B-E-E-F.",
+    "coaching_points": "Hold follow-through; arc; soft wrist snap.",
+    "common_errors": "",
+    "variations": "1-hand only; swishes-only round.",
+    "diagram": "diagram-formshooting.png",
+    "video_id": "",
+    "video_url": "",
+    "player_cues": "",
+    "reps": "",
+    "sets": "",
+    "equipment": ""
+  },
+  {
+    "id": "21",
+    "name": "Partner Passing Series",
+    "tags": [
+      "Passing & Spacing Drills"
+    ],
+    "summary": "",
+    "setup": "Pairs 10–12 ft apart, 1 ball.",
+    "execution": "10 chest, 10 bounce, 10 overhead; quick-release set.",
+    "coaching_points": "Snap wrists; thumbs down; step to target; talk.",
+    "common_errors": "",
+    "variations": "Add one-hand push; timed total.",
+    "diagram": "diagram-partnerpassing.png",
+    "video_id": "",
+    "video_url": "",
+    "player_cues": "",
+    "reps": "",
+    "sets": "",
+    "equipment": ""
+  },
+  {
+    "id": "29",
+    "name": "Layer 1 – Pass & Cut (Intro)",
+    "tags": [
+      "Read & React Offensive Drills"
+    ],
+    "summary": "",
+    "setup": "3–5 players spaced; no defense.",
+    "execution": "Pass → basket cut → fill; continuous.",
+    "coaching_points": "Cut hard; fill immediately; keep 15–18 ft.",
+    "common_errors": "",
+    "variations": "Add coach-guided help hand.",
+    "diagram": "diagram-randr-passcut.png",
+    "video_id": "",
+    "video_url": "",
+    "player_cues": "",
+    "reps": "",
+    "sets": "",
+    "equipment": ""
+  },
+  {
+    "id": "25",
+    "name": "Pass-and-Replace (L1 Review)",
+    "tags": [
+      "Passing & Spacing Drills"
+    ],
+    "summary": "",
+    "setup": "3–4 players on perimeter spots.",
+    "execution": "Pass, replace open spot, keep ball hot.",
+    "coaching_points": "Replace on time; talk through rotations.",
+    "common_errors": "",
+    "variations": "Add light defender to cue timing.",
+    "diagram": "diagram-passreplace.png",
+    "video_id": "",
+    "video_url": "",
+    "player_cues": "",
+    "reps": "",
+    "sets": "",
+    "equipment": ""
+  },
+  {
+    "id": "41",
+    "name": "1-on-1 Contain (No Middle)",
+    "tags": [
+      "Defensive Drills"
+    ],
+    "summary": "",
+    "setup": "Pairs at top; offense 3 dribbles.",
+    "execution": "Defender forces sideline; chest square; contain.",
+    "coaching_points": "Inside foot up; no reach; active hands.",
+    "common_errors": "",
+    "variations": "Weak-hand drives; add cones for help spots.",
+    "diagram": "diagram-1on1contain.png",
+    "video_id": "",
+    "video_url": "",
+    "player_cues": "",
+    "reps": "",
+    "sets": "",
+    "equipment": ""
+  },
+  {
+    "id": "40",
+    "name": "Closeout Technique Drill",
+    "tags": [
+      "Defensive Drills"
+    ],
+    "summary": "",
+    "setup": "Lines baseline; coach on wing.",
+    "execution": "Sprint → choppy steps → high hands; contest without flying by.",
+    "coaching_points": "High hands; controlled stop; call 'Ball!'.",
+    "common_errors": "",
+    "variations": "Add shot fake → 1-dribble drive recovery.",
+    "diagram": "diagram-closeouttechnique.png",
+    "video_id": "",
+    "video_url": "",
+    "player_cues": "",
+    "reps": "",
+    "sets": "",
+    "equipment": ""
+  },
+  {
+    "id": "52",
+    "name": "Rebounding Triangle Drill",
+    "tags": [
+      "Defensive Drills"
+    ],
+    "summary": "",
+    "setup": "3 O inside, 3 D outside triangle.",
+    "execution": "Coach shoots; D box out, pursue, two-hand board, outlet.",
+    "coaching_points": "Call 'Shot!'; hit & get; chin and outlet.",
+    "common_errors": "",
+    "variations": "Score 1 pt per D rebound.",
+    "diagram": "diagram-reboundingtriangle.png",
+    "video_id": "",
+    "video_url": "",
+    "player_cues": "",
+    "reps": "",
+    "sets": "",
+    "equipment": ""
+  },
+  {
+    "id": "38",
+    "name": "Layer 3 – Read & React Live Shell",
+    "tags": [
+      "Read & React Offensive Drills"
+    ],
+    "summary": "",
+    "setup": "4-on-4 controlled half-court.",
+    "execution": "Run L1 cuts in live context; coach dead-balls to teach spacing.",
+    "coaching_points": "Talk; space 15–18 ft; eyes on cutter.",
+    "common_errors": "",
+    "variations": "Require 3 passes before shot; 1 paint touch.",
+    "diagram": "diagram-randr-liveshell.png",
+    "video_id": "",
+    "video_url": "",
+    "player_cues": "",
+    "reps": "",
+    "sets": "",
+    "equipment": ""
+  },
+  {
     "id": "3",
     "name": "Full-Court Change-of-Pace",
     "tags": [
@@ -240,26 +480,6 @@
     "equipment": ""
   },
   {
-    "id": "1",
-    "name": "Stationary Two-Ball Series",
-    "tags": [
-      "Ball-Handling & Warm Up Drills"
-    ],
-    "summary": "",
-    "setup": "Each player with 2 balls on baseline.",
-    "execution": "20s each pattern (low/high/cross/between/behind).",
-    "coaching_points": "Low stance; eyes up; fingertips.",
-    "common_errors": "",
-    "variations": "Add movement or time goal.",
-    "diagram": "diagram-2ball.png",
-    "video_id": "",
-    "video_url": "",
-    "player_cues": "",
-    "reps": "",
-    "sets": "",
-    "equipment": ""
-  },
-  {
     "id": "2",
     "name": "Zig-Zag Control Dribble",
     "tags": [
@@ -272,26 +492,6 @@
     "common_errors": "",
     "variations": "Add defender shadow.",
     "diagram": "diagram-zigzag.png",
-    "video_id": "",
-    "video_url": "",
-    "player_cues": "",
-    "reps": "",
-    "sets": "",
-    "equipment": ""
-  },
-  {
-    "id": "12",
-    "name": "Reverse Mikan",
-    "tags": [
-      "Shooting & Finishing"
-    ],
-    "summary": "",
-    "setup": "Under rim facing away.",
-    "execution": "Continuous reverse layups alternating sides.",
-    "coaching_points": "Use glass; protect ball; balanced steps.",
-    "common_errors": "",
-    "variations": "Add pad contact.",
-    "diagram": "diagram-reversemikan.png",
     "video_id": "",
     "video_url": "",
     "player_cues": "",
@@ -480,26 +680,6 @@
     "equipment": ""
   },
   {
-    "id": "6",
-    "name": "Dynamic Warm-Up Circuit",
-    "tags": [
-      "Ball-Handling & Warm Up Drills"
-    ],
-    "summary": "",
-    "setup": "Players on baseline.",
-    "execution": "Jog, high-knees, butt-kicks, slides, backpedal to half ×2.",
-    "coaching_points": "Quality movement; posture.",
-    "common_errors": "",
-    "variations": "Add ball-handling to slides.",
-    "diagram": "diagram-dynamicwarmup.png",
-    "video_id": "",
-    "video_url": "",
-    "player_cues": "",
-    "reps": "",
-    "sets": "",
-    "equipment": ""
-  },
-  {
     "id": "16",
     "name": "10-Spot Form Contest",
     "tags": [
@@ -640,26 +820,6 @@
     "equipment": ""
   },
   {
-    "id": "11",
-    "name": "Mikan Series (Both Hands)",
-    "tags": [
-      "Shooting & Finishing"
-    ],
-    "summary": "",
-    "setup": "Player under rim with ball.",
-    "execution": "Alternate right/left off glass; no dribble.",
-    "coaching_points": "Eyes on square; inside foot; soft touch.",
-    "common_errors": "",
-    "variations": "Reverse next.",
-    "diagram": "diagram-mikanseries.png",
-    "video_id": "",
-    "video_url": "",
-    "player_cues": "",
-    "reps": "",
-    "sets": "",
-    "equipment": ""
-  },
-  {
     "id": "9",
     "name": "Full-Court Layup Lines",
     "tags": [
@@ -672,26 +832,6 @@
     "common_errors": "",
     "variations": "Add Euro or reverse.",
     "diagram": "diagram-layuplines.png",
-    "video_id": "",
-    "video_url": "",
-    "player_cues": "",
-    "reps": "",
-    "sets": "",
-    "equipment": ""
-  },
-  {
-    "id": "14",
-    "name": "Form Shooting (BEEF)",
-    "tags": [
-      "Shooting & Finishing"
-    ],
-    "summary": "",
-    "setup": "Players 3–6 ft around key.",
-    "execution": "High reps focusing B-E-E-F.",
-    "coaching_points": "Hold finish; arc; soft snap.",
-    "common_errors": "",
-    "variations": "1-hand only; swishes-only.",
-    "diagram": "diagram-formshooting.png",
     "video_id": "",
     "video_url": "",
     "player_cues": "",
@@ -720,26 +860,6 @@
     "equipment": ""
   },
   {
-    "id": "38",
-    "name": "Layer 3 – Read & React Live Shell",
-    "tags": [
-      "Read & React Offensive Drills"
-    ],
-    "summary": "",
-    "setup": "4v4 controlled.",
-    "execution": "All layers live; dead-balls to teach spacing.",
-    "coaching_points": "Play with spacing; keep dribble alive.",
-    "common_errors": "",
-    "variations": "3 passes before shot.",
-    "diagram": "diagram-randr-liveshell.png",
-    "video_id": "",
-    "video_url": "",
-    "player_cues": "",
-    "reps": "",
-    "sets": "",
-    "equipment": ""
-  },
-  {
     "id": "51",
     "name": "Transition Defense Sprint Back",
     "tags": [
@@ -752,46 +872,6 @@
     "common_errors": "",
     "variations": "Numbered matchup calls.",
     "diagram": "diagram-transitiondefense.png",
-    "video_id": "",
-    "video_url": "",
-    "player_cues": "",
-    "reps": "",
-    "sets": "",
-    "equipment": ""
-  },
-  {
-    "id": "52",
-    "name": "Rebounding Triangle Drill",
-    "tags": [
-      "Defensive Drills"
-    ],
-    "summary": "",
-    "setup": "3 O inside, 3 D outside.",
-    "execution": "Coach shoots; D box out; board; outlet.",
-    "coaching_points": "Hit & get; two-hand board; call 'Shot!'.",
-    "common_errors": "",
-    "variations": "Score defensive rebounds.",
-    "diagram": "diagram-reboundingtriangle.png",
-    "video_id": "",
-    "video_url": "",
-    "player_cues": "",
-    "reps": "",
-    "sets": "",
-    "equipment": ""
-  },
-  {
-    "id": "41",
-    "name": "1-on-1 Contain (No Middle)",
-    "tags": [
-      "Defensive Drills"
-    ],
-    "summary": "",
-    "setup": "Pairs at top; O gets 3 dribbles.",
-    "execution": "Force sideline; chest square; contain.",
-    "coaching_points": "Inside foot up; active hands.",
-    "common_errors": "",
-    "variations": "Weak-hand drive reps.",
-    "diagram": "diagram-1on1contain.png",
     "video_id": "",
     "video_url": "",
     "player_cues": "",
@@ -832,66 +912,6 @@
     "common_errors": "",
     "variations": "Random inbound locations.",
     "diagram": "diagram-lategamescrimmage.png",
-    "video_id": "",
-    "video_url": "",
-    "player_cues": "",
-    "reps": "",
-    "sets": "",
-    "equipment": ""
-  },
-  {
-    "id": "29",
-    "name": "Layer 1 – Pass & Cut (Intro)",
-    "tags": [
-      "Read & React Offensive Drills"
-    ],
-    "summary": "",
-    "setup": "3–5 spots; no D.",
-    "execution": "Pass → cut → fill continuous.",
-    "coaching_points": "Cut hard; fill immediately.",
-    "common_errors": "",
-    "variations": "Add guided help hand.",
-    "diagram": "diagram-randr-passcut.png",
-    "video_id": "",
-    "video_url": "",
-    "player_cues": "",
-    "reps": "",
-    "sets": "",
-    "equipment": ""
-  },
-  {
-    "id": "40",
-    "name": "Closeout Technique Drill",
-    "tags": [
-      "Defensive Drills"
-    ],
-    "summary": "",
-    "setup": "Lines baseline; coach wing.",
-    "execution": "Sprint → choppy → high hands.",
-    "coaching_points": "High hands; under control.",
-    "common_errors": "",
-    "variations": "Add shot fake drive.",
-    "diagram": "diagram-closeouttechnique.png",
-    "video_id": "",
-    "video_url": "",
-    "player_cues": "",
-    "reps": "",
-    "sets": "",
-    "equipment": ""
-  },
-  {
-    "id": "25",
-    "name": "Pass-and-Replace (L1 Review)",
-    "tags": [
-      "Passing & Spacing Drills"
-    ],
-    "summary": "",
-    "setup": "3–4 spots.",
-    "execution": "Pass → cut/replace; keep ball hot.",
-    "coaching_points": "Replace on time; talk.",
-    "common_errors": "",
-    "variations": "Add light D.",
-    "diagram": "diagram-passreplace.png",
     "video_id": "",
     "video_url": "",
     "player_cues": "",
