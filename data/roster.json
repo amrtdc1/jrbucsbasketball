@@ -1,16 +1,16 @@
 [
   {
     "player_id": 1,
-    "number": 1,
+    "number": 10,
     "first_name": "Jeremiah",
     "last_name": "Walker",
     "pos": "G",
     "parent1_name": "Christen Walker",
-    "parent1_phone": "7709999999",
-    "parent1_email": "email@email.com",
+    "parent1_phone": "7702837020",
+    "parent1_email": "cjwalker199@gmail.com",
     "parent2_name": "",
-    "parent2_phone": "9999999999",
-    "parent2_email": "email@email.com"
+    "parent2_phone": "",
+    "parent2_email": ""
   },
   {
     "player_id": 2,
@@ -27,29 +27,29 @@
   },
   {
     "player_id": 3,
-    "number": 15,
+    "number": 4,
     "first_name": "Kason",
     "last_name": "Rogers",
     "pos": "G",
     "parent1_name": "Kyle Rogers",
     "parent1_phone": "5135208010",
-    "parent1_email": "email@email.com",
+    "parent1_email": "",
     "parent2_name": "Bethany Rogers",
     "parent2_phone": "5133249977",
-    "parent2_email": "email@email.com"
+    "parent2_email": "bethanyrogers710@gmail.com"
   },
   {
     "player_id": 4,
-    "number": 24,
+    "number": 23,
     "first_name": "Redding",
     "last_name": "Holloman",
     "pos": "F",
     "parent1_name": "Jamie Holloman",
     "parent1_phone": "4043928908",
-    "parent1_email": "email@email.com",
+    "parent1_email": "Jamie.holloman@southernpipe.com",
     "parent2_name": "Courtney Holloman",
-    "parent2_phone": "9999999999",
-    "parent2_email": "email@email.com"
+    "parent2_phone": "",
+    "parent2_email": ""
   },
   {
     "player_id": 5,
@@ -59,49 +59,49 @@
     "pos": "F",
     "parent1_name": "Amos Pierre",
     "parent1_phone": "2402714727",
-    "parent1_email": "email@email.com",
+    "parent1_email": "",
     "parent2_name": "Amelia Pierre",
-    "parent2_phone": "9999999999",
-    "parent2_email": "email@email.com"
+    "parent2_phone": "2027340812",
+    "parent2_email": "ace10850@gmail.com"
   },
   {
     "player_id": 6,
-    "number": 4,
+    "number": 30,
     "first_name": "Jasiel",
     "last_name": "Gonzalez",
     "pos": "G",
     "parent1_name": "Paul Odom",
     "parent1_phone": "3463143710",
-    "parent1_email": "email@email.com",
+    "parent1_email": "",
     "parent2_name": "Jeanmarie Gonzalez",
-    "parent2_phone": "9999999999",
-    "parent2_email": "email@email.com"
+    "parent2_phone": "4707210566",
+    "parent2_email": "jeanmarie94@gmail.com"
   },
   {
     "player_id": 7,
-    "number": 16,
+    "number": 0,
     "first_name": "Oakley",
     "last_name": "Christianson",
     "pos": "F",
     "parent1_name": "Blair Christianson",
-    "parent1_phone": "9999999999",
-    "parent1_email": "email@email.com",
+    "parent1_phone": "7703757654",
+    "parent1_email": "blairb85@live.com",
     "parent2_name": "",
-    "parent2_phone": "9999999999",
-    "parent2_email": "email@email.com"
+    "parent2_phone": "",
+    "parent2_email": ""
   },
   {
     "player_id": 8,
-    "number": 14,
+    "number": 24,
     "first_name": "Hunter",
     "last_name": "Christianson",
     "pos": "F",
     "parent1_name": "Blair Christianson",
-    "parent1_phone": "9999999999",
-    "parent1_email": "email@email.com",
+    "parent1_phone": "7703757654",
+    "parent1_email": "blairb85@live.com",
     "parent2_name": "",
-    "parent2_phone": "9999999999",
-    "parent2_email": "email@email.com"
+    "parent2_phone": "",
+    "parent2_email": ""
   },
   {
     "player_id": 9,
@@ -111,10 +111,10 @@
     "pos": "F",
     "parent1_name": "Cameron West",
     "parent1_phone": "6782327254",
-    "parent1_email": "email@email.com",
+    "parent1_email": "foreverjohnwayne@gmail.com",
     "parent2_name": "Madison West",
     "parent2_phone": "7143105037",
-    "parent2_email": "email@email.com"
+    "parent2_email": ""
   },
   {
     "player_id": 10,
@@ -123,10 +123,10 @@
     "last_name": "Mateen",
     "pos": "F",
     "parent1_name": "Kasib Mateen",
-    "parent1_phone": "9999999999",
-    "parent1_email": "email@email.com",
+    "parent1_phone": "4042275017",
+    "parent1_email": "kasibibn@gmail.com",
     "parent2_name": "Aisha M",
-    "parent2_phone": "9999999999",
-    "parent2_email": "email@email.com"
+    "parent2_phone": "",
+    "parent2_email": ""
   }
 ]

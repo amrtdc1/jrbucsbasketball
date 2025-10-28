@@ -38,7 +38,7 @@
     "common_errors": "Open middle; reaching.",
     "variations": "Weak-hand drive reps.",
     "diagram": "diagram-1on1contain.png",
-    "video_url": "",
+    "video_url": "https://youtu.be/t9GWqQI-XVM?si=uug-jeAngsKe0hgR",
     "player_visible": false
   },
   {
@@ -185,7 +185,7 @@
     "common_errors": "Fly-by; biting on fakes.",
     "variations": "Add shot fake drive.",
     "diagram": "diagram-closeouttechnique.png",
-    "video_url": "",
+    "video_url": "https://youtu.be/-RBF1o2qa2g?si=vvs4kOm6tOj1kP8c",
     "player_visible": false
   },
   {
@@ -290,7 +290,7 @@
     "common_errors": "Rushing; flat arc.",
     "variations": "1-hand only; swishes-only.",
     "diagram": "diagram-formshooting.png",
-    "video_url": "",
+    "video_url": "https://youtu.be/2hY6fQmPJQ8?si=G0psLQyoN5X5H5yM&t=414",
     "player_visible": true
   },
   {
@@ -458,7 +458,7 @@
     "common_errors": "Jogging; late fill.",
     "variations": "Add guided help.",
     "diagram": "diagram-randr-passcut.png",
-    "video_url": "",
+    "video_url": "https://youtube.com/clip/Ugkxbgn5Yan4P4TMMFaSGkbY-efrfFr47wkd?si=U08jXthi8Hbe-wu1",
     "player_visible": true
   },
   {
@@ -626,7 +626,7 @@
     "common_errors": "Drifting; flat shots.",
     "variations": "Reverse next.",
     "diagram": "diagram-mikanseries.png",
-    "video_url": "",
+    "video_url": "https://youtu.be/wvicEkifYpw?si=0jLigKdgb4qHkqqt",
     "player_visible": true
   },
   {
@@ -652,7 +652,7 @@
   },
   {
     "id": 21,
-    "name": "Partner Passing Series",
+    "name": "Partner Pass-Closeout-Shot Series",
     "tags": [
       "Passing & Spacing Drills"
     ],
@@ -661,14 +661,14 @@
     "reps": "",
     "sets": "",
     "equipment": "",
-    "setup": "Pairs 10–12 ft apart, 1 ball.",
-    "execution": "10 chest, 10 bounce, 10 overhead; quick-release set.",
+    "setup": "Shooter 10–12 ft from basket, 1 ball.",
+    "execution": "20 chest, 20 bounce passes; quick-release set.",
     "player_cues": "",
     "coaching_points": "Snap wrists; thumbs down; step to target; talk.",
     "common_errors": "Lazy passes; flat trajectory.",
-    "variations": "Add one-hand push; timed total.",
+    "variations": "Add one-hand push pass; timed total.",
     "diagram": "diagram-partnerpassing.png",
-    "video_url": "",
+    "video_url": "https://youtu.be/rD0I5cz4kNU?si=e_hO8ml3BsLjjPoB",
     "player_visible": true
   },
   {
@@ -689,7 +689,7 @@
     "common_errors": "Watching ball; late fills.",
     "variations": "Add light D.",
     "diagram": "diagram-passreplace.png",
-    "video_url": "",
+    "video_url": "https://youtube.com/clip/UgkxYBTtFoaxylLd8_V_ZFWHGhfeqiIfiJ90?si=XLoHDrm67jOqSsTk",
     "player_visible": true
   },
   {
@@ -794,7 +794,7 @@
     "common_errors": "Watching; no contact.",
     "variations": "Score D boards.",
     "diagram": "diagram-reboundingtriangle.png",
-    "video_url": "",
+    "video_url": "https://youtu.be/gbb9CoEMF7s?si=PWU7Mh4meVOvnh0b",
     "player_visible": true
   },
   {
@@ -815,7 +815,7 @@
     "common_errors": "Wrong-foot; missing board.",
     "variations": "Add pad contact.",
     "diagram": "diagram-reversemikan.png",
-    "video_url": "",
+    "video_url": "https://youtu.be/wvicEkifYpw?si=0jLigKdgb4qHkqqt",
     "player_visible": true
   },
   {
@@ -878,7 +878,7 @@
     "common_errors": "High dribble; stiff posture.",
     "variations": "Add movement; timed sets.",
     "diagram": "diagram-2ball.png",
-    "video_url": "",
+    "video_url": "https://youtu.be/g2FaABi85nY?si=J6fP6u9q7el1ruQF",
     "player_visible": true
   },
   {

@@ -1,1 +1,251 @@
-[]
+[
+  {
+    "video_id": "1",
+    "url": "https://youtu.be/wvicEkifYpw?si=0jLigKdgb4qHkqqt",
+    "title": "Mikan & Reverse MiKan",
+    "channel": "",
+    "type": "Shooting & Finishing",
+    "description": "Mikan Series basket finishes",
+    "related_drill_ids": [
+      11,
+      12
+    ],
+    "tags": []
+  },
+  {
+    "video_id": "2",
+    "url": "https://youtu.be/g2FaABi85nY?si=J6fP6u9q7el1ruQF",
+    "title": "5-minute dribbling",
+    "channel": "",
+    "type": "Ball-Handling & Warm Up Drills",
+    "description": "5-minute Dribbling workout",
+    "related_drill_ids": [
+      1
+    ],
+    "tags": []
+  },
+  {
+    "video_id": "3",
+    "url": "https://youtube.com/clip/Ugkxbgn5Yan4P4TMMFaSGkbY-efrfFr47wkd?si=U08jXthi8Hbe-wu1",
+    "title": "Give & Go Layups",
+    "channel": "",
+    "type": "Ball-Handling & Warm Up Drills",
+    "description": "Warm-up layups",
+    "related_drill_ids": [
+      29
+    ],
+    "tags": []
+  },
+  {
+    "video_id": "4",
+    "url": "https://youtube.com/clip/UgkxYBTtFoaxylLd8_V_ZFWHGhfeqiIfiJ90?si=XLoHDrm67jOqSsTk",
+    "title": "Cut & Fill Layups",
+    "channel": "",
+    "type": "Read & React Offensive Drills",
+    "description": "Cut & Fill drill",
+    "related_drill_ids": [
+      25
+    ],
+    "tags": []
+  },
+  {
+    "video_id": "5",
+    "url": "https://youtube.com/clip/UgkxG29jXFSCArm8JE6f-WjECCEMGlGj8OS3?si=Pw5Ak5bch33OjGKD",
+    "title": "Cut & Fill Layups-Backdoor Cut",
+    "channel": "",
+    "type": "Read & React Offensive Drills",
+    "description": "Cut & Fill - Backdoor drill",
+    "related_drill_ids": [],
+    "tags": []
+  },
+  {
+    "video_id": "6",
+    "url": "https://youtube.com/clip/UgkxiC3L_Q0hCw7iMac3i6CqCsMjbtGjBJji?si=UOWkpHs1ZTXtDTTR",
+    "title": "Cut & Fill Jumpshot",
+    "channel": "",
+    "type": "Read & React Offensive Drills",
+    "description": "Cut & Fill - Mid-range jumper",
+    "related_drill_ids": [],
+    "tags": []
+  },
+  {
+    "video_id": "7",
+    "url": "https://youtube.com/clip/UgkxNhBQYLYDtgUObm_fvu9-q5_eOHq69oQX?si=cDG0q28VTp6AkHgB",
+    "title": "Cut & Fill w Defender",
+    "channel": "",
+    "type": "Read & React Offensive Drills",
+    "description": "Cut & Fill - Single Defender",
+    "related_drill_ids": [],
+    "tags": []
+  },
+  {
+    "video_id": "8",
+    "url": "https://youtube.com/clip/UgkxKrAIHTKxXOsH4I6yT9_0lIAqoERzmH01?si=Eci8OX8VVpcpAfGC",
+    "title": "Cut & Fill Off-Ball Screen",
+    "channel": "",
+    "type": "Read & React Offensive Drills",
+    "description": "Cut & Fill - Off-Ball Screen",
+    "related_drill_ids": [],
+    "tags": []
+  },
+  {
+    "video_id": "9",
+    "url": "https://youtube.com/clip/UgkxfNSGU3IVT4RLZeUKY3hb8VecEFQv2u5p?si=Pb0zgmOhM1vRUEHJ",
+    "title": "Cut & Fill Off-Ball Screen w/ Defender",
+    "channel": "",
+    "type": "Read & React Offensive Drills",
+    "description": "Cut & Fill - On-Ball Screen",
+    "related_drill_ids": [],
+    "tags": []
+  },
+  {
+    "video_id": "10",
+    "url": "https://youtube.com/clip/Ugkxkv77bUPXRg345MhXbkdH-jna3TgIKtdH?si=33Utfi_bSmAZV5cD",
+    "title": "Cut & Fill On-Ball Screen",
+    "channel": "",
+    "type": "Read & React Offensive Drills",
+    "description": "Cut & Fill - Off-Ball Screen w/ Defender",
+    "related_drill_ids": [],
+    "tags": []
+  },
+  {
+    "video_id": "11",
+    "url": "https://youtube.com/clip/UgkxQav0hwexluG2Tai2oLXZIsxkmWQCYKvZ?si=Ec9J_ZBR6SnGVgMX",
+    "title": "Cut & Fill On-Ball Screen w/ Defenders",
+    "channel": "",
+    "type": "Read & React Offensive Drills",
+    "description": "Cut & Fill - On-Ball Screen w/ Defenders",
+    "related_drill_ids": [],
+    "tags": []
+  },
+  {
+    "video_id": "12",
+    "url": "",
+    "title": "Cut & Fill - Dribble At",
+    "channel": "",
+    "type": "Read & React Offensive Drills",
+    "description": "Cut & Fill - Dribble At",
+    "related_drill_ids": [],
+    "tags": []
+  },
+  {
+    "video_id": "13",
+    "url": "https://youtube.com/clip/UgkxuIq1vJxwE4o4YQhTJ9WdBzDdO1VAMgkl?si=KwZtnZfIRBSoW61N",
+    "title": "Cut & Fill - 3 v 2",
+    "channel": "",
+    "type": "Read & React Offensive Drills",
+    "description": "Cut & Fill - 3 v 2, no screens",
+    "related_drill_ids": [],
+    "tags": []
+  },
+  {
+    "video_id": "14",
+    "url": "https://youtube.com/clip/UgkxzbZvuLyiSq75o_ZRkQe17LPWSfrVxXpH?si=PhjPag4mOryrZCkR",
+    "title": "Cut & Fill - 4 v 3, 5 v 4",
+    "channel": "",
+    "type": "Read & React Offensive Drills",
+    "description": "Cut & Fill - 4 v 3 or 5 v 4, no limitations",
+    "related_drill_ids": [],
+    "tags": []
+  },
+  {
+    "video_id": "15",
+    "url": "https://youtube.com/clip/UgkxzbZvuLyiSq75o_ZRkQe17LPWSfrVxXpH?si=PhjPag4mOryrZCkR",
+    "title": "Cut & Fill - Corner Warm Up",
+    "channel": "",
+    "type": "Ball Handling & Warm Up Drills",
+    "description": "",
+    "related_drill_ids": [],
+    "tags": []
+  },
+  {
+    "video_id": "16",
+    "url": "https://youtube.com/clip/Ugkxe_QwhOZgHcl_mcymw_5A-ZxGcGosKdqh?si=0WRfIdOi7yGUhsH2",
+    "title": "Release Point - 1 Hand Feather Shooting",
+    "channel": "",
+    "type": "Shooting & Finishing",
+    "description": "Release Point - 1 Hand Feather Shooting",
+    "related_drill_ids": [],
+    "tags": []
+  },
+  {
+    "video_id": "17",
+    "url": "https://youtube.com/clip/Ugkx3MsN958pAdIFw5nDpKVwVSH-40FXF_91?si=A6UBjGoQouDIzFxB",
+    "title": "Release Point - Feather Shooting with Guide Hand",
+    "channel": "",
+    "type": "Shooting & Finishing",
+    "description": "Release Point - Feather Shooting with Guide Hand",
+    "related_drill_ids": [],
+    "tags": []
+  },
+  {
+    "video_id": "18",
+    "url": "https://youtube.com/clip/UgkxvfL-yF8sH83yNqte3Qf74axzLn58oQ0n?si=CmYWzmlz82_rNhhk",
+    "title": "Release Point - Wall Shooting",
+    "channel": "",
+    "type": "Shooting & Finishing",
+    "description": "Release Point - Wall Shooting",
+    "related_drill_ids": [],
+    "tags": []
+  },
+  {
+    "video_id": "19",
+    "url": "https://youtu.be/2hY6fQmPJQ8?si=G0psLQyoN5X5H5yM&t=414",
+    "title": "Set Point - Set to Go Drill",
+    "channel": "",
+    "type": "Shooting & Finishing",
+    "description": "Set Point - Set to Go Drill",
+    "related_drill_ids": [
+      14
+    ],
+    "tags": []
+  },
+  {
+    "video_id": "20",
+    "url": "https://youtu.be/rD0I5cz4kNU?si=e_hO8ml3BsLjjPoB",
+    "title": "Partner Shooting Drills",
+    "channel": "",
+    "type": "Shooting & Finishing",
+    "description": "Partner shooting drills",
+    "related_drill_ids": [
+      21
+    ],
+    "tags": []
+  },
+  {
+    "video_id": "21",
+    "url": "https://youtu.be/t9GWqQI-XVM?si=uug-jeAngsKe0hgR",
+    "title": "4 on 4 Shell",
+    "channel": "",
+    "type": "Defensive Drills",
+    "description": "4 on 4 Shell Drill",
+    "related_drill_ids": [
+      41
+    ],
+    "tags": []
+  },
+  {
+    "video_id": "22",
+    "url": "https://youtu.be/-RBF1o2qa2g?si=vvs4kOm6tOj1kP8c",
+    "title": "1 v 3 Closeout Defensive Competition Drill",
+    "channel": "",
+    "type": "Defensive Drills",
+    "description": "1 v 3 Closeout Competition",
+    "related_drill_ids": [
+      40
+    ],
+    "tags": []
+  },
+  {
+    "video_id": "23",
+    "url": "https://youtu.be/gbb9CoEMF7s?si=PWU7Mh4meVOvnh0b",
+    "title": "Creighton Rebounding Drill",
+    "channel": "",
+    "type": "Defensive Drills",
+    "description": "Creighton Rebounding",
+    "related_drill_ids": [
+      52
+    ],
+    "tags": []
+  }
+]
